@@ -33,7 +33,7 @@ export class Client {
         this.status = "ACTIVE";
     }
 
-    //solo si esta avtivo se suspende 
+    //solo si esta activo se suspende 
     suspend() {
         if (this.status !== "ACTIVE") {
             throw new Error("Only active clients can be suspended");
@@ -45,6 +45,12 @@ export class Client {
     assignRouter(serial: string) {
         if (!serial) throw new Error("Router serial is required");
         this.routerSerial = serial;
+    }
+    //eliminar
+    delete(){
+        if(this.status === "ACTIVE") {
+            throw new Error("Active clients cannot be deleted")
+        }
     }
 }
 

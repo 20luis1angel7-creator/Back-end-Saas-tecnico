@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { ActivateClientUseCase } from "../../src/application/use-cases/client/ActivateClientUseCase.js";
-import { InMemoryClientRepository } from "../../src/infrastructure/database/repositories/InMemoryClientRepository.js";
-import { Client } from "../../src/domain/entities/Client.js";
+import { ActivateClientUseCase } from "../../../../src/application/use-cases/client/ActivateClientUseCase.js";
+import { InMemoryClientRepository } from "../../../../src/infrastructure/database/repositories/InMemoryClientRepository.js";
+import { Client } from "../../../../src/domain/entities/Client.js";
 import { randomUUID } from "node:crypto";
 
 describe("ActivateClientUseCase", () => {
@@ -56,7 +56,7 @@ describe("ActivateClientUseCase", () => {
 
         await expect(usecase.execute(client.id))
         .rejects
-        .toThrow();
+        .toThrow("Client cannot be activited from current state");
     });
 });
 

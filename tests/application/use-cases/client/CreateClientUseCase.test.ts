@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { CreateClientUseCase } from "../../src/application/use-cases/client/CreateClientUseCase.js";
-import { InMemoryClientRepository } from "../../src/infrastructure/database/repositories/InMemoryClientRepository.js";
+import { CreateClientUseCase } from "../../../../src/application/use-cases/client/CreateClientUseCase.js";
+import { InMemoryClientRepository } from "../../../../src/infrastructure/database/repositories/InMemoryClientRepository.js";
 
 
 describe("CreateClientUseCase", () => {
