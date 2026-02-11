@@ -4,10 +4,16 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/main.ts",
+    "dev": "node --loader ts-node/esm src/infrastructure/web/server.ts",
     "build": "tsc",
     "start": "node dist/main.js",
     "test": "vitest run"
+  },
+    "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "esModuleInterop": true
   },
   "keywords": [],
   "author": "",

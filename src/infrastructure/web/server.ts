@@ -7,7 +7,7 @@ app.use(express.json());
 //Todas las rutas definidas en clientRoutes tendrán el prefijo /clients.
 app.use("/clients", clientRoutes);
 //Defines el puerto donde corre el servidor.
-const PORT = 5000;
+const PORT = 3000;
 //Abre el servidor. Escucha en el puerto 3000. Ejecuta el callback cuando el servidor arranca
 app.listen(PORT, () => {
     console.log(`Server running on http:localhost:${PORT}`)

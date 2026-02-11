@@ -3,8 +3,21 @@ import { Router } from "express";
 import { ClientController } from "../controllers/ClientController.js";
 //Aquí estás creando una instancia del router.
 const router = Router();
-//Cuando llegue una petición POST a esta ruta, ejecutar ClientController.create.
-router.post("/", ClientController.create)
+//Creas una instancia del controller para poder usar sus métodos.
+const controller = new ClientController();
+//Se usa para crear un cliente..
+router.post("/", (req, res) => controller.create(req, res))
+//Devuelve todos los clientes.
+router.get("/", (req, res) => controller.list(req, res));
+//Se usa para obtener un cliente específico.
+router.get("/:id", (req, res) => controller.getById(req, res));
+//Elimina un cliente.
+router.delete("/:id", (req, res) => controller.delete(req, res));
+//Activa el cliente.
+router.patch("/:id/activate", (req, res) => controller.activate(req, res));
+//Suspende el cliente.
+router.patch("/:id/suspend", (req, res)=>  controller.suspend(req, res));
+
 //este archivo solo exporta una cosa principal: el router. "Lo más importante de este archivo es el router". Entonces lo exportas como default.
 export default router;
 
