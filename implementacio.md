@@ -79,10 +79,11 @@ luego hicimos 2 test
 
 ###### updateclient usecase
 
+###### controller
+- ahora vamos hacer los controller (web layer)
+-ej: endpoint (POST, GET, PUT, DELETE)
 
-
-
-
+hicimos server y rotes clientes
 
 
 
