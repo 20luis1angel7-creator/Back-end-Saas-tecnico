@@ -74,6 +74,11 @@ sencillo
 ######   hicimo 2 test de get client by id usecase
 2 test 
 
+###### hicimos list clients usecase
+luego hicimos 2 test
+
+###### updateclient usecase
+
 
 
 

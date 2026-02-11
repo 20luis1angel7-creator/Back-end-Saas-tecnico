@@ -9,7 +9,7 @@ export class GetClientByIdUseCase{
         const client = await this.repository.findById(id);
         //si no existe
         if(!client){
-            throw new Error("Cliet not found");
+            throw new Error("Client not found");
         }
         //si existe devuelvelo(retornalo)
         return client;

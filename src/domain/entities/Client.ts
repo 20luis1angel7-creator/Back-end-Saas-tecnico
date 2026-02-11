@@ -52,6 +52,20 @@ export class Client {
             throw new Error("Active clients cannot be deleted")
         }
     }
+
+    updateData(
+        name: string,
+        nickname: string,
+        address: string,
+        phone: string,
+        planId: string
+    ) {
+        this.name = name;
+        this.nickname = nickname;
+        this.address = address;
+        this.phone = phone;
+        this.planId = planId;
+    }
 }
 
 
