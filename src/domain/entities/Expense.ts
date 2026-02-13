@@ -34,7 +34,7 @@ export class Expense {
       
     }
   }
-  get id() {
+  get id() {//modo lectura no se puede modificar
     return this.props.id;
   }
 

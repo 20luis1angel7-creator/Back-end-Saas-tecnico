@@ -1,6 +1,8 @@
 import { Client } from "../../../domain/entities/Client.js";
 import type { ClientRepository } from "../../../domain/repositories/ClientRepository.js";
 import { randomUUID } from "crypto";
+import { Order } from "../../../domain/entities/Order.js";
+import { OrderRepository } from "../../../domain/repositories/OrderRepository.js";
 
 
 interface CreateClientDTO {
@@ -13,12 +15,14 @@ interface CreateClientDTO {
 }
 
 export class CreateClientUseCase {
-    constructor(private readonly repository: ClientRepository) {}
+    constructor(private readonly clientrepository: ClientRepository,
+        private readonly orderRepository: OrderRepository
+    ) {}
 
     async execute(data:CreateClientDTO): Promise<Client> {
 
         //valida duplicado de cedula
-        const existingClient = await this.repository.findByCedula(data.cedula);
+        const existingClient = await this.clientrepository.findByCedula(data.cedula);
 
         if (existingClient) {
             throw new Error("Client with this cedula already exists");
@@ -36,8 +40,18 @@ export class CreateClientUseCase {
         )
 
         //guardar en repositorio
-        await this.repository.save(client);
+        await this.clientrepository.save(client);
+        //orden creada
+        const order = new Order(
+            randomUUID(),
+            client.id,
+            "PENDING",
+            new Date()
+        )
+        //guardar orden
+        await this.orderRepository.save(order)
 
+        //console.log ("order creada: ", order);
         return client;
     }
 }

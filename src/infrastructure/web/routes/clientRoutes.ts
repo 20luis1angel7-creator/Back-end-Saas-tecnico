@@ -18,6 +18,8 @@ router.patch("/:id/activate", (req, res) => controller.activate(req, res));
 //Suspende el cliente.
 router.patch("/:id/suspend", (req, res)=>  controller.suspend(req, res));
 
+router.put("/:id", (req, res) => controller.update(req, res));
+
 //este archivo solo exporta una cosa principal: el router. "Lo más importante de este archivo es el router". Entonces lo exportas como default.
 export default router;
 

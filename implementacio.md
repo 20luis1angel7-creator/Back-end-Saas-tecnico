@@ -85,6 +85,19 @@ luego hicimos 2 test
 
 hicimos server y rotes clientes
 
+### order
+- hicimos entities/Order.ts
+status, getters, status(start, completed, cancelled)
+
+- luego hicimos OrderRepository
+- InMemoryOrderRepository
+- modificamos createclientusecase
+- modificamos ClientController
+- OrderController
+- creamos container y modificamos controller y order
+- crear orderRotues
+- arreglamos order.routes y ordercontroller (en postman en vez de salirme la informacion de PENDING, me salia [])
+
 
 
 
