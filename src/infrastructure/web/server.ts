@@ -13,7 +13,7 @@ app.use("/orders", orderRoutes)
 const PORT = 3000;
 //Abre el servidor. Escucha en el puerto 3000. Ejecuta el callback cuando el servidor arranca
 app.listen(PORT, () => {
-    console.log(`Server running on http:localhost:${PORT}`)
+    console.log(`Server running on http://localhost:${PORT}`)
 })
 
 
