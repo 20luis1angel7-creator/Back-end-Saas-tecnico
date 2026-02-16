@@ -110,6 +110,10 @@ status, getters, status(start, completed, cancelled)
 - modificamos los errores en controller, order, uno en client
 - arreglamos los test que deron muchos problema ( sobre que teniamos que implementar una creacion de orden el los test )
 
+16/2/26
+- creamos invoice en entities
+- creamos invoiceRepository
+- creamos GenerateMonthlyinvoicesUseCase
 
 
 
