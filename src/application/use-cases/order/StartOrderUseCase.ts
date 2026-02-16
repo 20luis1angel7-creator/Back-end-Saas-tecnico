@@ -1,4 +1,4 @@
-import { callbackify } from "node:util";
+import { NotFoundError } from "../../../domain/errors/DomainErrors.js";
 import { OrderRepository } from "../../../domain/repositories/OrderRepository.js";
 import { Order } from "../../../domain/entities/Order.js";
 
@@ -12,7 +12,7 @@ export class StartOrderUseCase {
         const order = await this.orderRepository.findById(id);
 
         if (!order) {
-            throw new Error("Order not found");
+            throw new NotFoundError("Order not found");
         }
 
         order.start();

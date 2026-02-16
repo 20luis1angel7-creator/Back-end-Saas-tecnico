@@ -1,13 +1,16 @@
 import { describe, it, expect } from "vitest";
 import { CreateClientUseCase } from "../../../../src/application/use-cases/client/CreateClientUseCase.js";
 import { InMemoryClientRepository } from "../../../../src/infrastructure/database/repositories/InMemoryClientRepository.js";
+import { InMemoryOrderRepository } from "../../../../src/infrastructure/database/repositories/InMemoryOrderRepository.js";
+import { clientRepository } from "../../../../src/infrastructure/constainer.js";
 
 
 describe("CreateClientUseCase", () => {
     it("should create client successfully", async () => {
-        const repository = new InMemoryClientRepository();
+        const clientRepository = new InMemoryClientRepository();
+        const orderRepository = new InMemoryOrderRepository();
 
-        const useCase = new CreateClientUseCase(repository);
+        const useCase = new CreateClientUseCase(clientRepository, orderRepository);
 
         const result = await useCase.execute({
             name: "Luis",
@@ -23,8 +26,10 @@ describe("CreateClientUseCase", () => {
 
     //cedula duplicada
     it("should throw if cedula already exists", async () => {
-        const repository = new InMemoryClientRepository();
-        const useCase = new CreateClientUseCase(repository);
+        const clientRepository = new InMemoryClientRepository();
+        const orderRepository = new InMemoryOrderRepository();
+
+        const useCase = new CreateClientUseCase(clientRepository, orderRepository);
 
         await useCase.execute({
             name: "Luis",
@@ -48,9 +53,10 @@ describe("CreateClientUseCase", () => {
     });
 
     it("should throw if planId is missing", async () => {
-        const repository = new InMemoryClientRepository();
+        const clientRepository = new InMemoryClientRepository();
+        const orderRepository = new InMemoryOrderRepository();
 
-        const useCase = new CreateClientUseCase(repository);
+        const useCase = new CreateClientUseCase(clientRepository, orderRepository);
 
         await expect( 
             useCase.execute({
@@ -65,9 +71,10 @@ describe("CreateClientUseCase", () => {
     })
 
     it("should throw if name is empty", async () => {
-        const repository = new InMemoryClientRepository();
+        const clientRepository = new InMemoryClientRepository();
+        const orderRepository = new InMemoryOrderRepository();
 
-        const useCase = new CreateClientUseCase(repository);
+        const useCase = new CreateClientUseCase(clientRepository, orderRepository);
 
         await expect(
              useCase.execute({

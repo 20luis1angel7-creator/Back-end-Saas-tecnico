@@ -7,8 +7,8 @@ import { UpdateClientUseCase } from "../../../application/use-cases/client/Updat
 import { DeleteClientUseCase } from "../../../application/use-cases/client/DeleteClientUseCase.js";
 import { ActivateClientUseCase } from "../../../application/use-cases/client/ActivateClientUseCase.js";
 import { SuspendClientUseCase } from "../../../application/use-cases/client/SuspendClientUseCase.js";
-import { InMemoryOrderRepository } from "../../database/repositories/InMemoryOrderRepository.js";
 import { clientRepository, orderRepository } from "../../constainer.js";
+import { NotFoundError, BusinessRuleError } from "../../../domain/errors/DomainErrors.js";
 
 
 //Creando el repositorio. Inyectándolo al caso de uso
@@ -29,7 +29,12 @@ export class ClientController{
             return res.status(201).json(result);
         //si el caso de uso lanza error    
         } catch (error: any) {
-            return res.status(400).json({ error: error.message});
+            if (error instanceof BusinessRuleError) {
+            return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message });
+            }
+            
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
+            
         }
     }
 
@@ -47,7 +52,11 @@ export class ClientController{
 
             res.status(200).json(result)
         } catch (error: any) {
-            res.status(404).json({ error: error.message });
+            if(error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message });
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
@@ -58,7 +67,13 @@ export class ClientController{
 
             res.status(204).send()
         } catch (error: any) {
-            res.status(400).json({ error: error.message })
+            if(error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+            if (error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
@@ -69,7 +84,14 @@ export class ClientController{
 
             res.json(result);
         } catch (error: any) {
-            res.status(400).json({ error: error.message });
+            if( error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message })
+            }
+            if (error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message });
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
@@ -80,7 +102,15 @@ export class ClientController{
 
             res.json(result)
         } catch (error: any) {
-            res.status(400).json({ error: error.message })
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
     async update(req: Request<{id: string}>, res:Response) {
@@ -92,9 +122,17 @@ export class ClientController{
             name, nickname, address, phone, planId
         );
         res.json(result)
-    } catch (error: any) {
-        res.status(400).json({ error: error.message })
-    }
+        } catch (error: any) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message })
+            }
+            
+            if (error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error" })
+        }
     }
 }
 

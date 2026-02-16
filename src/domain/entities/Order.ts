@@ -1,3 +1,4 @@
+import { BusinessRuleError } from "../errors/DomainErrors.js";
 
 export type OrderStatus =
 | "PENDING"
@@ -27,7 +28,7 @@ export class Order {
     //Solo puedes iniciar una orden si está en "PENDING"
     start() {
         if(this._status !== "PENDING") {
-            throw new Error("Order can only start from PENDING state")
+            throw new BusinessRuleError("Order can only start from PENDING state")
         }
         this._status = "IN_PROGRESS";
     }
@@ -35,7 +36,7 @@ export class Order {
     //Solo puedes completar si está en "IN_PROGRESS"
     complete() {
         if(this._status !== "IN_PROGRESS"){
-            throw new Error("Order must be IN_PORGRESS to complete")
+            throw new BusinessRuleError("Order must be IN_PORGRESS to complete")
         }
         this._status = "COMPLETED";
         this._completedAt = new Date();
@@ -44,11 +45,11 @@ export class Order {
     //No puedes cancelar si ya está completada.
     cancel() {
         if(this._status === "COMPLETED"){
-            throw new Error("Cannot cancel a completed order");
+            throw new BusinessRuleError("Cannot cancel a completed order");
         }
 
         if (this._status === "CANCELLED"){
-            throw new Error("Order is already cancelled")
+            throw new BusinessRuleError("Order is already cancelled")
         }
         this._status = "CANCELLED";
     }

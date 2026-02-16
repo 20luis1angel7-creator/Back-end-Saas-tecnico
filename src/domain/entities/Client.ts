@@ -1,3 +1,5 @@
+import { BusinessRuleError } from "../errors/DomainErrors.js";
+
 export type ClientStatus =
 | "PENDING_INSTALLATION"
 | "ACTIVE"
@@ -28,7 +30,7 @@ export class Client {
     
     activate() {
         if (this.status !== "PENDING_INSTALLATION") {
-            throw new Error("Client cannot be activited from current state");
+            throw new BusinessRuleError("Client cannot be activited from current state");
         }
         this.status = "ACTIVE";
     }

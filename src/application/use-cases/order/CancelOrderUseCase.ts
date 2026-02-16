@@ -1,6 +1,6 @@
 import { OrderRepository } from "../../../domain/repositories/OrderRepository.js";
 import { Order } from "../../../domain/entities/Order.js";
-
+import { NotFoundError } from "../../../domain/errors/DomainErrors.js";
 
 
 export class CancelOrderUseCase {
@@ -11,7 +11,7 @@ export class CancelOrderUseCase {
         const order = await this.orderRepository.findById(id);
         //validar existencia
         if(!order) {
-            throw new Error("Order not found");
+            throw new NotFoundError("Order not found");
         }
         //ejecutar metodo de entidad
         order.cancel();

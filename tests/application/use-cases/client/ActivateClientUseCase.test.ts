@@ -3,10 +3,14 @@ import { ActivateClientUseCase } from "../../../../src/application/use-cases/cli
 import { InMemoryClientRepository } from "../../../../src/infrastructure/database/repositories/InMemoryClientRepository.js";
 import { Client } from "../../../../src/domain/entities/Client.js";
 import { randomUUID } from "node:crypto";
+import { InMemoryOrderRepository } from "../../../../src/infrastructure/database/repositories/InMemoryOrderRepository.js";
+import { Order } from "../../../../src/domain/entities/Order.js";
+
 
 describe("ActivateClientUseCase", () => {
-    it("should activae client successfully", async () => {
-        const repository = new InMemoryClientRepository();
+    it("should activate client successfully", async () => {
+        const clientRepository = new InMemoryClientRepository();
+        const orderRepository = new InMemoryOrderRepository();
 
         const client = new Client(
             randomUUID(),
@@ -18,9 +22,19 @@ describe("ActivateClientUseCase", () => {
             "plan-basic"
         );
 
-        await repository.save(client);
+        await clientRepository.save(client);
+        const order = new Order(
+            crypto.randomUUID(),
+            client.id,
+            "PENDING",
+            new Date()
+        );
+        order.start();
+        order.complete();
 
-        const usecase = new ActivateClientUseCase(repository);
+        await orderRepository.save(order);
+
+        const usecase = new ActivateClientUseCase(clientRepository, orderRepository);
 
         const result = await usecase.execute(client.id);
 
@@ -28,8 +42,10 @@ describe("ActivateClientUseCase", () => {
     })
 
     it("should throw if client does not exist", async () => {
-        const repository = new InMemoryClientRepository();
-        const usecase = new ActivateClientUseCase(repository);
+        const clientRepository = new InMemoryClientRepository();
+        const orderRepository = new InMemoryOrderRepository()
+
+        const usecase = new ActivateClientUseCase(clientRepository, orderRepository);
 
         await expect(usecase.execute("fake-id"))
         .rejects
@@ -37,7 +53,8 @@ describe("ActivateClientUseCase", () => {
     })
 
     it("should throw if activating twice", async () => {
-        const repository = new InMemoryClientRepository();
+        const clientRepository = new InMemoryClientRepository();
+        const orderRepository = new InMemoryOrderRepository()
 
         const client = new Client(
             randomUUID(),
@@ -48,12 +65,24 @@ describe("ActivateClientUseCase", () => {
             "8090000000",
             "plan-basic"
         );
+
+        await clientRepository.save(client);
+
+        const order = new Order(
+            randomUUID(),
+            client.id,
+            "PENDING",
+            new Date()
+        );
+        order.start();
+        order.complete();
         
-        client.activate();
-        await repository.save(client);
-
-        const usecase = new ActivateClientUseCase(repository);
-
+        await orderRepository.save(order);
+       
+        const usecase = new ActivateClientUseCase(clientRepository, orderRepository);
+        //primera activacion
+        await usecase.execute(client.id);
+        //segunda activacion
         await expect(usecase.execute(client.id))
         .rejects
         .toThrow("Client cannot be activited from current state");

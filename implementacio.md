@@ -98,15 +98,17 @@ status, getters, status(start, completed, cancelled)
 - crear orderRotues
 - arreglamos order.routes y ordercontroller (en postman en vez de salirme la informacion de PENDING, me salia [])
 
-15/2/26
+14/2/26
 -agregamos start, complete en OrderController
 - agregamos 2 patch en order.routes /:id/order
 - cree StartOrderUseCase
 - cree CancelOrderUseCase
 - agregamos cancel en OrderController
 
-
-
+15/2/26
+- creamos un archivo para poner o agregar errores
+- modificamos los errores en controller, order, uno en client
+- arreglamos los test que deron muchos problema ( sobre que teniamos que implementar una creacion de orden el los test )
 
 
 

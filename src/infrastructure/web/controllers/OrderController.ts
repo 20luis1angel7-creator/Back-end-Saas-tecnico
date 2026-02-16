@@ -3,6 +3,8 @@ import { orderRepository } from "../../constainer.js";
 import { CompleteOrderUseCase } from "../../../application/use-cases/order/CompleteOrderUseCase.js";
 import { StartOrderUseCase } from "../../../application/use-cases/order/StartOrderUseCase.js";
 import { CancelOrderUseCase } from "../../../application/use-cases/order/CancelOrderUseCase.js";
+import { DomainError } from "../../../domain/errors/DomainErrors.js";
+import { domainToASCII } from "node:url";
 
 export class OrderController {
     async getClientById( req: Request<{ clientId: string}>, res: Response) {
@@ -11,7 +13,10 @@ export class OrderController {
             
             return res.json(orders);
         }catch(error:any){
-            return res.status(400).json({ error: error.message });
+            if (error instanceof DomainError) {
+                return res.status(400).json({ error: error.message})
+            }
+            return res.status(400).json({ error: "Internal server error" });
         }
     }
 
@@ -23,7 +28,10 @@ export class OrderController {
 
             res.json(order);
         } catch (error: any) {
-            res.status(400).json({ error: error.message });
+            if(error instanceof DomainError) {
+                return res.status(400).json({ error: error.message})
+            }
+            res.status(500).json({ error: "Internal server error" });
         }
     }
     
@@ -34,7 +42,10 @@ export class OrderController {
 
             res.json(order);
         } catch (error: any) {
-            res.status(400).json({ error: error.message })
+            if ( error instanceof DomainError) {
+                return res.status(400).json({ error: error.message })
+            }
+            res.status(500).json({ error: "Internal server error" })
         }
     }
 
@@ -46,7 +57,10 @@ export class OrderController {
             res.json(result);
             
         }catch (error: any) {
-            res.status(400).json({ error: error.message })
+            if(error instanceof DomainError) {
+                return res.status(400).json({ error: error.message })
+            }
+            res.status(500).json({ error: "Internal server errer" })
         }
     }
     

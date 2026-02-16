@@ -1,6 +1,6 @@
 import { Order } from "../../../domain/entities/Order.js";
+import { NotFoundError } from "../../../domain/errors/DomainErrors.js";
 import { OrderRepository } from "../../../domain/repositories/OrderRepository.js";
-
 
 export class CompleteOrderUseCase {
     constructor( private readonly repository: OrderRepository ) {}
@@ -9,7 +9,7 @@ export class CompleteOrderUseCase {
         const order = await this.repository.findById(id);
 
         if(!order) {
-            throw new Error("Order not found")
+            throw new NotFoundError("Order not found")
         }
 
         order.complete();
