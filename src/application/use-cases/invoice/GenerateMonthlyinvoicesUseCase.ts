@@ -1,15 +1,14 @@
-import { exit } from "process";
-import { BusinessRuleError } from "../../../domain/errors/DomainErrors.js";
 import { ClientRepository } from "../../../domain/repositories/ClientRepository.js";
 import { InvoiceRepository } from "../../../domain/repositories/InvoiceRepository.js";
 import { Invoice } from "../../../domain/entities/Invoice.js";
-
+import { IdGenerator } from "../../../infrastructure/services/IdGenerator.js";
 
 
 export class GenerateMonthlyInvoicesUseCase {
     constructor( 
         private readonly clientRepository: ClientRepository,
-        private readonly invoiceRepository: InvoiceRepository
+        private readonly invoiceRepository: InvoiceRepository,
+        private readonly idGenerate: IdGenerator
     ) {}
 
     async execute(today: Date): Promise<void> {
@@ -38,7 +37,7 @@ export class GenerateMonthlyInvoicesUseCase {
             )
 
             const invoice = new Invoice(
-                generateId(),
+                this.idGenerate.generate(),
                 client.id, 
                 today,
                 dueDate

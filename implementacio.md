@@ -115,6 +115,14 @@ status, getters, status(start, completed, cancelled)
 - creamos invoiceRepository
 - creamos GenerateMonthlyinvoicesUseCase
 
+19/226
+
+- modificamos client markwarning()
+- modificamos invoiceRepository
+- creamos UpdateOverdueInvoiceUseCase()
+- creamos RecalculateClientStatusUseCase()
+- creamos RegisterInvoicePaymentUseCase()
+
 
 
 
