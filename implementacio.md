@@ -123,9 +123,13 @@ status, getters, status(start, completed, cancelled)
 - creamos RecalculateClientStatusUseCase()
 - creamos RegisterInvoicePaymentUseCase()
 
+22/2/26
 
-
-
+- creamos RegisterPaymentUseCase
+- creamos InMemoryPaymentRepository
+- intentando arreglar los test (+ 15 errores)
+- movimos la web de infrestructura a presentation
+- cree clientRoutes (se elimino cuando lo movi)
 
 
 

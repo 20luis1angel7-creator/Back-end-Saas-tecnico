@@ -85,7 +85,7 @@ describe("ActivateClientUseCase", () => {
         //segunda activacion
         await expect(usecase.execute(client.id))
         .rejects
-        .toThrow("Client cannot be activited from current state");
+        .toThrow("Client cannot be activated from current state");
     });
 });
 

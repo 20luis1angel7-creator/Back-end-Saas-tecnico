@@ -58,7 +58,7 @@ describe("SuspendClientUseCase", () => {
 
         await expect(usecase.execute(client.id))
         .rejects
-        .toThrow("Only active clients can be suspended")
+        .toThrow("Only active clients can be suspend")
 
     })
 })

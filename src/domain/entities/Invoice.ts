@@ -12,6 +12,7 @@ export class Invoice {
     constructor(
         public readonly id: string,
         public readonly clientId: string,
+        public readonly amount: number,
         public readonly issueDate: Date,
         private _dueDate: Date,
         

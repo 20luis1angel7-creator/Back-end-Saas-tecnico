@@ -29,23 +29,14 @@ export class Client {
     }
 
     
-    activate() {
+    activate(): void {
         if (this.status === "ACTIVE") {
-            return;
+            throw new BusinessRuleError(
+                "Client cannot be activated from current state"
+            );
         }
+        this.status = "ACTIVE";
 
-        if (this.status === "PENDING_INSTALLATION") {
-            this.status = "ACTIVE";
-            return;
-        }
-
-        if (this.status === "WARNING" || this.status === "SUSPENDED") {
-            this.status = "ACTIVE";
-            return;
-        }
-        
-        throw new BusinessRuleError("Client cannot be activited from current state");
-    
     }
 
     markWarning() {
@@ -59,7 +50,8 @@ export class Client {
     //solo si esta activo se suspende 
     suspend() {
         if (this.status !== "ACTIVE" && this.status !== "WARNING") {
-            throw new BusinessRuleError("Client cannot be suspended from current state");
+            throw new BusinessRuleError(
+                "Only active clients can be suspend");
         }
         this.status = "SUSPENDED";
     }

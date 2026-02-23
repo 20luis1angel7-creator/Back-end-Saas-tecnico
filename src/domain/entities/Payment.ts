@@ -1,8 +1,5 @@
 import { BusinessRuleError } from "../errors/DomainErrors.js";
 
-
-
-
 export class Payment {
     constructor(
         public readonly id: string,
@@ -16,6 +13,5 @@ export class Payment {
             throw new BusinessRuleError("Payment amount must be greater than zero")
         }
     }
-
-    
+  
 }
