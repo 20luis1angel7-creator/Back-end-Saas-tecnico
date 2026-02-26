@@ -131,6 +131,18 @@ status, getters, status(start, completed, cancelled)
 - movimos la web de infrestructura a presentation
 - cree clientRoutes (se elimino cuando lo movi)
 
+25/2/26
 
+- creamos Material en entities
+- creamos OrderMaterialUsge en entities
+- creamos MaterialRepository
+- creamos OrderMaterialUsageRepository
+- creamos InMemoryMaterialRepository
+
+26/2/26
+
+- creamos orderMaterialUsage
+- creamos RegisterMaterialUsageUseCase 
+- 
 
 

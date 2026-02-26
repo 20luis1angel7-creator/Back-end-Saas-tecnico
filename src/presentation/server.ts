@@ -1,5 +1,5 @@
 import express  from "express";
-import clientRoutes from "./controllers/clientRoutes.js"
+import clientRoutes from "./routes/clientRoutes.js"
 import orderRoutes from "./routes/order.routes.js";
 
 export function startServer() {
