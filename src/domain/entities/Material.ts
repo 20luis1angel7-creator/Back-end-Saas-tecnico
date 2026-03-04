@@ -3,7 +3,7 @@ import { BusinessRuleError } from "../errors/DomainErrors.js";
 
 export class Material {
     constructor(
-        private readonly id: string,
+        public readonly id: string,
         private _name: string,
         private _stock: number,
         private _minStock: number,

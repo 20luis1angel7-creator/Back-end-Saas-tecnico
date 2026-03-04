@@ -6,8 +6,6 @@ export class ListClientsUseCase {
 
     async execute(): Promise<Client[]> {
         return this.repository.findAll();
-
-
     }
 }
 

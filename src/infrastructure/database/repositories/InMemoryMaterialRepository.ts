@@ -1,7 +1,7 @@
 import { Material } from "../../../domain/entities/Material.js";
 
 
-export class InmMemoryMaterialRepository {
+export class InMemoryMaterialRepository {
     private materials: Map <string, Material> = new Map();
 
     async findById(id: string): Promise<Material | null> {

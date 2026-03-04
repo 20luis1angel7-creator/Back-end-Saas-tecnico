@@ -1,5 +1,5 @@
 import { Order } from "../../../domain/entities/Order.js";
-import { NotFoundError } from "../../../domain/errors/DomainErrors.js";
+import { BusinessRuleError, NotFoundError } from "../../../domain/errors/DomainErrors.js";
 import { OrderRepository } from "../../../domain/repositories/OrderRepository.js";
 import { MaterialRepository } from "../../../domain/repositories/MaterialRepository.js";
 import { OrderMaterialUsageRepository } from "../../../domain/repositories/OrderMaterialUsageRepository.js";
@@ -8,7 +8,7 @@ export class CompleteOrderUseCase {
     constructor( 
         private readonly repository: OrderRepository,
         private readonly materialRepository: MaterialRepository,
-        private readonly usageRepository: OrderMaterialUsageRepository
+        private readonly orderMaterialUsageRepository: OrderMaterialUsageRepository
     ) {}
 
     async execute(id: string): Promise<Order> {
@@ -18,8 +18,11 @@ export class CompleteOrderUseCase {
             throw new NotFoundError("Order not found")
         }
 
-        const usages = await this.usageRepository.findByOrderId(id);
+        const usages = await this.orderMaterialUsageRepository.findByOrderId(id);
 
+        if (order.status === "COMPLETED") {
+            throw new BusinessRuleError("Order already completed")
+        }
         for (const usage of usages){
             const material = await this.materialRepository.findById(usage.materialId)
 
@@ -28,7 +31,7 @@ export class CompleteOrderUseCase {
             }
 
             if (usage.quantity > material.stock){
-                throw new Error("Not enough stock to complete order")
+                throw new BusinessRuleError("Not enough stock to complete order")
             }
         }
 

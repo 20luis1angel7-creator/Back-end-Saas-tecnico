@@ -4,6 +4,8 @@ import { CompleteOrderUseCase } from "../../application/use-cases/order/Complete
 import { StartOrderUseCase } from "../../application/use-cases/order/StartOrderUseCase.js";
 import { CancelOrderUseCase } from "../../application/use-cases/order/CancelOrderUseCase.js";
 import { DomainError } from "../../domain/errors/DomainErrors.js";
+import { materialRepository } from "../../infrastructure/constainer.js";
+import { orderMaterialUsageRepository } from "../../infrastructure/constainer.js";
 
 export class OrderController {
     async getClientById( req: Request<{ clientId: string}>, res: Response) {
@@ -35,8 +37,13 @@ export class OrderController {
     }
     
     async complete(req: Request<{id: string}>, res: Response) {
+        
         try {
-            const usecase = new CompleteOrderUseCase(orderRepository);
+            const usecase = new CompleteOrderUseCase(
+                orderRepository,
+                materialRepository,
+                orderMaterialUsageRepository
+            );
             const order = await usecase.execute(req.params.id);
 
             res.json(order);

@@ -2,13 +2,16 @@ import { ClientRepository } from "../../../domain/repositories/ClientRepository.
 import { InvoiceRepository } from "../../../domain/repositories/InvoiceRepository.js";
 import { Invoice } from "../../../domain/entities/Invoice.js";
 import { IdGenerator } from "../../../infrastructure/services/IdGenerator.js";
+import { PlanRepository } from "../../../domain/repositories/PlanRepository.js";
+import { NotFoundError } from "../../../domain/errors/DomainErrors.js";
 
 
 export class GenerateMonthlyInvoicesUseCase {
     constructor( 
+        private readonly planRepository: PlanRepository,
         private readonly clientRepository: ClientRepository,
         private readonly invoiceRepository: InvoiceRepository,
-        private readonly idGenerate: IdGenerator
+        private readonly idGenerate: IdGenerator,
     ) {}
 
     async execute(today: Date): Promise<void> {
@@ -28,7 +31,7 @@ export class GenerateMonthlyInvoicesUseCase {
                 year
             )
 
-            if (!existingInvoice) {
+            if (existingInvoice) {
                 continue;
             }
 
@@ -36,9 +39,18 @@ export class GenerateMonthlyInvoicesUseCase {
                 today.getTime() + 30 * 24 * 60 * 60 * 1000
             )
 
+            const plan = await this.planRepository.findById(client.planId)
+
+            if (!plan) {
+                throw new NotFoundError("Not found plan")
+            }
+
+            const amount = plan.price
+
             const invoice = new Invoice(
                 this.idGenerate.generate(),
                 client.id, 
+                amount,
                 today,
                 dueDate
             )

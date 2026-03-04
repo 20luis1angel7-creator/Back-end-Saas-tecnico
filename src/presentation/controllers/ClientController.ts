@@ -30,7 +30,7 @@ export class ClientController{
         //si el caso de uso lanza error    
         } catch (error: any) {
             if (error instanceof BusinessRuleError) {
-            return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message });
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message });
             }
             
             return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})

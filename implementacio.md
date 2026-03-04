@@ -143,6 +143,25 @@ status, getters, status(start, completed, cancelled)
 
 - creamos orderMaterialUsage
 - creamos RegisterMaterialUsageUseCase 
-- 
+
+3/3/26
+
+- cree planrepository
+- arreglamos GenerateMonthlyinvoicesUseCase 
+- arregle varios problema
+- modifique container.ts
+- creamos InMemoryPlanRepository 
+- modificamos mas el container y arreglando mas errores
+- cree InMemoryInvoiceRepository
+
+
+4/3/26
+
+- creamos invoicecontroller (generate)
+- cree findByCliendId en inmemoryinvoicerepository
+- hice varias cosas mas no recuerdo
+
+
+
 
 
