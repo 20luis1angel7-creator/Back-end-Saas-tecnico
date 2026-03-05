@@ -161,7 +161,11 @@ status, getters, status(start, completed, cancelled)
 - cree findByCliendId en inmemoryinvoicerepository
 - hice varias cosas mas no recuerdo
 
+5/3/26
 
+- cree GetClientInvoiceUseCase
+- agregue getClientInvoiceUseCase en el container
+- creamos invoicecontroller (getClientInvoices)
 
 
 

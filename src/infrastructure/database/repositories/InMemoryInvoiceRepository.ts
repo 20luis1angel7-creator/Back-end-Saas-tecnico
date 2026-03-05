@@ -37,7 +37,7 @@ export class InMemoryInvoiceRepository implements InvoiceRepository {
             i.issueDate.getFullYear() === year)
     }
 
-    async findByCliendId(clientId: string): Promise<Invoice[]> {
+    async findByClientId(clientId: string): Promise<Invoice[]> {
         return this.invoices.filter(i => i.clientId === clientId);
     }
 }

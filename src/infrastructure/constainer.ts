@@ -6,6 +6,7 @@ import { InMemoryPlanRepository } from "./database/repositories/InMemoryPlanRepo
 import { GenerateMonthlyInvoicesUseCase } from "../application/use-cases/invoice/GenerateMonthlyinvoicesUseCase.js";
 import { InMemoryInvoiceRepository } from "./database/repositories/InMemoryInvoiceRepository.js";
 import { UuidGenerator } from "./services/IdGenerator.js";
+import { GetClientInvoiceUseCase } from "../application/use-cases/invoice/GetClientInvoiceUseCase.js";
 
 //singleton manual
 export const clientRepository = new InMemoryClientRepository();
@@ -22,3 +23,7 @@ export const generateMonthlyInvoicesUseCase = new GenerateMonthlyInvoicesUseCase
     invoiceRepository,
     idGenerator
 )
+
+export const getClientInvoiceUseCase = new GetClientInvoiceUseCase(invoiceRepository);
+            
+    

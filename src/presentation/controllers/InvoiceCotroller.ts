@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import { NotFoundError } from "../../domain/errors/DomainErrors.js";
-import { clientRepository, generateMonthlyInvoicesUseCase } from "../../infrastructure/constainer.js";
-import { invoiceRepository } from "../../infrastructure/constainer.js";
-
-
+import { generateMonthlyInvoicesUseCase } from "../../infrastructure/constainer.js";
+import { getClientInvoiceUseCase } from "../../infrastructure/constainer.js";
 
 export class InvoiceController {
 
@@ -23,12 +21,14 @@ export class InvoiceController {
         }
     }
 
-    async seeinvoice(req: Request, res: Response) {
+    async getClientInvoices(req: Request<{clientId: string}>, res: Response) {
         try {
-            const clientId = await invoiceRepository.findByCliendId(req.params.id)
+            const usecase = getClientInvoiceUseCase
+            const invoice = await usecase.execute(req.params.clientId)
             
+            return res.status(200).json(invoice)
         }catch (error:any) {
-
+            return res.status(500).json({ message: error.message })
         }
     }
     

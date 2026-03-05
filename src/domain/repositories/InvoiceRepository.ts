@@ -12,5 +12,5 @@ export interface InvoiceRepository {
     findByClientAndStatus(clientId: string, status: InvoiceStatus): Promise<Invoice[]>;
     // findByClientAndStatus(clientId: string, status: InvoiceStatus): Promise<Invoice[]>;
     findById(id: string): Promise<Invoice | null>;
-    findByCliendId(clientId: string): Promise<Invoice[]>;
+    findByClientId(clientId: string): Promise<Invoice[]>;
 }
