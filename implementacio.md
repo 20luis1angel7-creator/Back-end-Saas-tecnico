@@ -166,6 +166,6 @@ status, getters, status(start, completed, cancelled)
 - cree GetClientInvoiceUseCase
 - agregue getClientInvoiceUseCase en el container
 - creamos invoicecontroller (getClientInvoices)
-
+- creamos invoicecontroller (payinvoice) y arreglando muchos errores
 
 

@@ -7,6 +7,10 @@ import { GenerateMonthlyInvoicesUseCase } from "../application/use-cases/invoice
 import { InMemoryInvoiceRepository } from "./database/repositories/InMemoryInvoiceRepository.js";
 import { UuidGenerator } from "./services/IdGenerator.js";
 import { GetClientInvoiceUseCase } from "../application/use-cases/invoice/GetClientInvoiceUseCase.js";
+import { RegisterInvoicePaymentUseCase } from "../application/use-cases/invoice/RegisterInvoicePaymentUseCase.js";
+import { RecalculateClienStatusUseCase } from "../application/use-cases/invoice/RecalculateClientStatusUseCase.js";
+import { UpdateOverdueInvoiceUseCase } from "../application/use-cases/invoice/UpdateOverdueInvoiceUseCase.js";
+import { GetInvoiceByIdUseCase } from "../application/use-cases/invoice/GetInvoiceByIdUseCase.js";
 
 //singleton manual
 export const clientRepository = new InMemoryClientRepository();
@@ -25,5 +29,14 @@ export const generateMonthlyInvoicesUseCase = new GenerateMonthlyInvoicesUseCase
 )
 
 export const getClientInvoiceUseCase = new GetClientInvoiceUseCase(invoiceRepository);
-            
-    
+
+export const recalculateClienStatusUseCase = new RecalculateClienStatusUseCase(
+    clientRepository,
+    invoiceRepository
+)
+export const registerInvoicePaymentUseCase = new RegisterInvoicePaymentUseCase(
+    invoiceRepository,
+    recalculateClienStatusUseCase
+)
+export const updateOverdueInvoiceUseCase = new UpdateOverdueInvoiceUseCase(invoiceRepository)
+export const getInvoiceByIdUseCase = new GetInvoiceByIdUseCase(invoiceRepository)

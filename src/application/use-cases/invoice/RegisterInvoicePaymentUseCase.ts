@@ -1,7 +1,7 @@
 import { InvoiceRepository } from "../../../domain/repositories/InvoiceRepository.js";
 import { RecalculateClienStatusUseCase } from "./RecalculateClientStatusUseCase.js";
 
-export class RegisterInvoicePaymentUseCase {
+export class RegisterInvoicePaymentUseCase{
     constructor( private readonly invoiceRepository: InvoiceRepository,
         private readonly recalculateClienStatusUseCase: RecalculateClienStatusUseCase 
     ) {}
