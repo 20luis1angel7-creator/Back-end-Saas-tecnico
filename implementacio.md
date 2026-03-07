@@ -168,4 +168,33 @@ status, getters, status(start, completed, cancelled)
 - creamos invoicecontroller (getClientInvoices)
 - creamos invoicecontroller (payinvoice) y arreglando muchos errores
 
+7/3/26
+
+- cree los tres controllers que faltavan
+- arregle algunos errores
+- cree getInvoiceByIdUseCase
+- modifique barios archivo y agregue algo en el container
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
