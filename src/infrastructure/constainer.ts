@@ -11,6 +11,9 @@ import { RegisterInvoicePaymentUseCase } from "../application/use-cases/invoice/
 import { RecalculateClienStatusUseCase } from "../application/use-cases/invoice/RecalculateClientStatusUseCase.js";
 import { UpdateOverdueInvoiceUseCase } from "../application/use-cases/invoice/UpdateOverdueInvoiceUseCase.js";
 import { GetInvoiceByIdUseCase } from "../application/use-cases/invoice/GetInvoiceByIdUseCase.js";
+import { InMemoryPaymentRepository } from "./database/repositories/InMemoryPaymentRepository.js";
+import { RegisterPaymentUseCase } from "../application/use-cases/payment/RegisterPaymentUseCase.js";
+
 
 //singleton manual
 export const clientRepository = new InMemoryClientRepository();
@@ -40,3 +43,11 @@ export const registerInvoicePaymentUseCase = new RegisterInvoicePaymentUseCase(
 )
 export const updateOverdueInvoiceUseCase = new UpdateOverdueInvoiceUseCase(invoiceRepository)
 export const getInvoiceByIdUseCase = new GetInvoiceByIdUseCase(invoiceRepository)
+export const paymentRepository = new InMemoryPaymentRepository()
+export const registerPaymentUseCase = new RegisterPaymentUseCase(
+    invoiceRepository,
+    paymentRepository,
+    idGenerator
+)
+
+
