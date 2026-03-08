@@ -178,7 +178,10 @@ status, getters, status(start, completed, cancelled)
 - hice controllers y routes
 - tambien agregue varias cosas en el container
 
+8/3/29
 
+- dure 3 hora haciendo createplanusecase
+- modifico la ia inmemoryplanrepository  (estudiarlo)
 
 
 

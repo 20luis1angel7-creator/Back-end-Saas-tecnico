@@ -51,7 +51,7 @@ export class RegisterPaymentUseCase {
 
         await this.paymentRepository.save(payment);
 
-        if (amount === remainingBalance) {
+        if (amount >= remainingBalance) {
             invoice.pay(new Date());
             await this.invoiceRepository.save(invoice)
         }

@@ -15,7 +15,7 @@ export class Plan {
     public price: number;
     public speed: number;
     public isActive: boolean = true;
-    public readonly createdId: Date = new Date();
+    public readonly createdAt: Date = new Date();
 
 
     constructor(props: PlanProps) {
@@ -25,7 +25,7 @@ export class Plan {
         this.price = props.price;
         this.speed = props.speed;
         this.isActive = props.isActive ?? true;
-        this.createdId = props.createdAt ?? new Date();
+        this.createdAt = props.createdAt ?? new Date();
 
         this.validate();
     }
@@ -45,5 +45,15 @@ export class Plan {
     }
     deactivate() {
         this.isActive = false;
+    }
+
+    update(
+        name: string,
+        price: number,
+        speed: number
+    ) {
+        this.name = name;
+        this.price = price;
+        this.speed = speed;
     }
 }
