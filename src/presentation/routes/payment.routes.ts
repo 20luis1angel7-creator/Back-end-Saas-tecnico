@@ -9,5 +9,6 @@ const controller = new PaymentController
 
 router.post("/payments", (req, res) => controller.pay(req, res))
 
+router.get("/invoices/:invoiceId/payments", (req, res) => controller.getInvoicePayment(req, res))
 
 export default router

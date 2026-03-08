@@ -174,7 +174,9 @@ status, getters, status(start, completed, cancelled)
 - arregle algunos errores
 - cree getInvoiceByIdUseCase
 - modifique barios archivo y agregue algo en el container
-
+- hice GetPaymentByInvoiceUseCase
+- hice controllers y routes
+- tambien agregue varias cosas en el container
 
 
 
