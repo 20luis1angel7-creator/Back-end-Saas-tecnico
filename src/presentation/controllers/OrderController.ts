@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { orderRepository } from "../../infrastructure/constainer.js";
+import { orderRepository } from "../../infrastructure/container.js";
 import { CompleteOrderUseCase } from "../../application/use-cases/order/CompleteOrderUseCase.js";
 import { StartOrderUseCase } from "../../application/use-cases/order/StartOrderUseCase.js";
 import { CancelOrderUseCase } from "../../application/use-cases/order/CancelOrderUseCase.js";
 import { DomainError } from "../../domain/errors/DomainErrors.js";
-import { materialRepository } from "../../infrastructure/constainer.js";
-import { orderMaterialUsageRepository } from "../../infrastructure/constainer.js";
+import { materialRepository } from "../../infrastructure/container.js";
+import { orderMaterialUsageRepository } from "../../infrastructure/container.js";
 
 export class OrderController {
     async getClientById( req: Request<{ clientId: string}>, res: Response) {

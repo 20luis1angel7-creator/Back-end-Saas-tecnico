@@ -14,6 +14,11 @@ import { GetInvoiceByIdUseCase } from "../application/use-cases/invoice/GetInvoi
 import { InMemoryPaymentRepository } from "./database/repositories/InMemoryPaymentRepository.js";
 import { RegisterPaymentUseCase } from "../application/use-cases/payment/RegisterPaymentUseCase.js";
 import { GetPaymentByInvoiceUseCase } from "../application/use-cases/payment/GetPaymentByInvoiceUseCase.js";
+import { CreatePlanUseCase } from "../application/use-cases/plan/CreatePlanUseCase.js";
+import { GetPlanByIdUseCase } from "../application/use-cases/plan/GetPlanByIdUseCase.js";
+import { ListPlansUseCase } from "../application/use-cases/plan/ListPlansUseCase.js";
+import { DeactivatePlanUseCase } from "../application/use-cases/plan/DeactivatePlanUseCase.js";
+import { UpdatePlanUseCase } from "../application/use-cases/plan/UpdatePlanUseCase.js";
 
 //singleton manual
 export const clientRepository = new InMemoryClientRepository();
@@ -50,5 +55,30 @@ export const registerPaymentUseCase = new RegisterPaymentUseCase(
     idGenerator
 )
 export const getPaymentByInvoiceUseCase = new GetPaymentByInvoiceUseCase(paymentRepository)
+
+// Plan usecase
+export const createPlanUseCase = new CreatePlanUseCase(planRepository)
+export const getPlanByIdUseCase = new GetPlanByIdUseCase(planRepository)
+export const listPlansUseCase = new ListPlansUseCase(planRepository)
+export const deactivatePlanUseCase = new DeactivatePlanUseCase(planRepository)
+export const updatePlanUseCase = new UpdatePlanUseCase(planRepository)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

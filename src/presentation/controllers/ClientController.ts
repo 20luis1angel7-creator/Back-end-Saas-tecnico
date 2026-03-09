@@ -7,7 +7,7 @@ import { UpdateClientUseCase } from "../../application/use-cases/client/UpdateCl
 import { DeleteClientUseCase } from "../../application/use-cases/client/DeleteClientUseCase.js";
 import { ActivateClientUseCase } from "../../application/use-cases/client/ActivateClientUseCase.js";
 import { SuspendClientUseCase } from "../../application/use-cases/client/SuspendClientUseCase.js";
-import { clientRepository, orderRepository } from "../../infrastructure/constainer.js";
+import { clientRepository, orderRepository } from "../../infrastructure/container.js";
 import { NotFoundError, BusinessRuleError } from "../../domain/errors/DomainErrors.js";
 
 

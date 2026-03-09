@@ -182,9 +182,12 @@ status, getters, status(start, completed, cancelled)
 
 - dure 3 hora haciendo createplanusecase
 - modifico la ia inmemoryplanrepository  (estudiarlo)
+- cree CreatePlan, DeactivatePlan, GetPlanById, ListPlans, UpdatePlan en usecase (estudiarlo y lo hice rapido yo solo: solo la ia me dio los pasos y ya)
 
+9/3/26
 
-
+- agregue los usecase de plan en el container
+- hice yo plan controller
 
 
 

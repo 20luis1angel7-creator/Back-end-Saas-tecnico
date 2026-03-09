@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { NotFoundError } from "../../domain/errors/DomainErrors.js";
-import { generateMonthlyInvoicesUseCase, getInvoiceByIdUseCase, invoiceRepository } from "../../infrastructure/constainer.js";
-import { getClientInvoiceUseCase } from "../../infrastructure/constainer.js";
-import { registerInvoicePaymentUseCase } from "../../infrastructure/constainer.js";
-import { updateOverdueInvoiceUseCase } from "../../infrastructure/constainer.js";
+import { generateMonthlyInvoicesUseCase, getInvoiceByIdUseCase, invoiceRepository } from "../../infrastructure/container.js";
+import { getClientInvoiceUseCase } from "../../infrastructure/container.js";
+import { registerInvoicePaymentUseCase } from "../../infrastructure/container.js";
+import { updateOverdueInvoiceUseCase } from "../../infrastructure/container.js";
 
 export class InvoiceController {
     //generar factura

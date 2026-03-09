@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { getPaymentByInvoiceUseCase, registerPaymentUseCase } from "../../infrastructure/constainer.js"
+import { getPaymentByInvoiceUseCase, registerPaymentUseCase } from "../../infrastructure/container.js"
 
 export class PaymentController {
 
