@@ -1,1 +1,0 @@
-{"version":3,"file":"DeleteClientUseCase.d.ts","sourceRoot":"","sources":["../../../../../src/application/use-cases/client/DeleteClientUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,kDAAkD,CAAC;AAKpF,qBAAa,mBAAmB;IAExB,OAAO,CAAC,QAAQ,CAAC,gBAAgB;gBAAhB,gBAAgB,EAAE,gBAAgB;IAEjD,OAAO,CAAC,EAAE,EAAE,MAAM,GAAG,OAAO,CAAC,IAAI,CAAC;CAkB3C"}

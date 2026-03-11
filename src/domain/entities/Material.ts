@@ -65,7 +65,21 @@ export class Material {
         this._stock -= quantity
     }
 
-    desactive() {
+    deactive() {
         this._active = false
+    }
+
+    update(
+        name: string,
+        stock: number,
+        minStock: number,
+        unitPrice: number,
+        active: boolean
+    ) {
+        this._name = name;
+        this._stock = stock;
+        this._minStock = minStock;
+        this._unitPrice = unitPrice;
+        this._active = active;
     }
 }

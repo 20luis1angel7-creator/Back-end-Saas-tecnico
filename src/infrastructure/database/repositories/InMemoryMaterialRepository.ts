@@ -1,3 +1,4 @@
+import { devNull } from "os";
 import { Material } from "../../../domain/entities/Material.js";
 
 
@@ -14,5 +15,9 @@ export class InMemoryMaterialRepository {
 
     async findAll(): Promise<Material[]> {
         return Array.from(this.materials.values());
+    }
+
+    async findByName(name: string): Promise<Material | null> {
+        return this.materials.get(name) ?? null
     }
 }
