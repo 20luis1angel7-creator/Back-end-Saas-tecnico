@@ -1,4 +1,3 @@
-import { notDeepEqual } from "node:assert";
 import { Plan } from "../../../domain/entities/Plan.js";
 import { PlanRepository } from "../../../domain/repositories/PlanRepository.js";
 import { NotFoundError } from "../../../domain/errors/DomainErrors.js";

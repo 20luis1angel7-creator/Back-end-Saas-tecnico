@@ -19,6 +19,9 @@ import { GetPlanByIdUseCase } from "../application/use-cases/plan/GetPlanByIdUse
 import { ListPlansUseCase } from "../application/use-cases/plan/ListPlansUseCase.js";
 import { DeactivatePlanUseCase } from "../application/use-cases/plan/DeactivatePlanUseCase.js";
 import { UpdatePlanUseCase } from "../application/use-cases/plan/UpdatePlanUseCase.js";
+import { CreateExpenseUseCase } from "../application/use-cases/expense/CreateExpenseUseCase.js";
+import { InMemoryExpenseRepository } from "./database/repositories/InMemoryExpenseRepository.js";
+
 
 //singleton manual
 export const clientRepository = new InMemoryClientRepository();
@@ -28,6 +31,8 @@ export const orderMaterialUsageRepository = new InMemoryMaterialUsageRepository(
 export const planRepository = new InMemoryPlanRepository();
 export const invoiceRepository = new InMemoryInvoiceRepository();
 export const idGenerator = new UuidGenerator()
+export const expenseRepository = new InMemoryExpenseRepository()
+
 
 export const generateMonthlyInvoicesUseCase = new GenerateMonthlyInvoicesUseCase(
     planRepository,
@@ -63,6 +68,8 @@ export const listPlansUseCase = new ListPlansUseCase(planRepository)
 export const deactivatePlanUseCase = new DeactivatePlanUseCase(planRepository)
 export const updatePlanUseCase = new UpdatePlanUseCase(planRepository)
 
+// Expense PlanController
+export const createExpenseUseCase = new CreateExpenseUseCase(expenseRepository)
 
 
 

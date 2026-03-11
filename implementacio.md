@@ -190,9 +190,166 @@ status, getters, status(start, completed, cancelled)
 - hice yo plan controller
 
 
+10/3/26
+
+- hice ExpenseRepository
+- hice CreateExpenseUseCase
+- hice ListExpensesUseCase
+- hice GetExpenseByIdUseCase
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- falta el pdf en las facturas
+
+- Expense
+usecase: agregar gastos(automatico o como sea), ver expense detallado y total, 
+repository: 
+inmemory: 
+controller:
+router:
+
+
+- material
+usecase: 
+controller:
+router:
+
+
+- SERVER
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Falta en el backend
+- Módulos / capas
+
+ExpenseController
+expense.routes.ts
+Use cases de Expense si no los has hecho completos
+Validar si Material ya tiene controller + routes; si no, faltan
+Validar si Plan ya quedó conectado en server.ts; si no, falta registrar rutas
+Validar si Payment ya quedó conectado en server.ts; si no, falta registrar rutas
+Validar si Invoice ya quedó conectado en server.ts; si no, falta registrar rutas
+
+- Infraestructura
+
+Base de datos real (sigues con InMemory)
+Repositorios reales para DB
+Variables de entorno bien organizadas
+Middleware global de errores
+Validación de requests
+Logs
+
+- Seguridad
+
+Autenticación
+Autorización / roles
+Middleware de permisos
+
+- Calidad
+
+Tests unitarios
+Tests de integración
+Documentación de API (Swagger/OpenAPI)
+Manejo consistente de errores HTTP
+Paginación y filtros en listados
+
+- Posibles módulos que aún faltan cerrar
+
+Expense
+Material (si no tiene controller/routes)
+conexión completa de todas las rutas en server.ts
+revisar comentarios, typos y nombres inconsistentes en archivos/rutas/controladores
 
 
 
