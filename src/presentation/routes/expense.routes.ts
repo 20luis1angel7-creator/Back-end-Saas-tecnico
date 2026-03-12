@@ -9,12 +9,12 @@ const router = Router()
 
 const controller = new ExpenseController()
 
-router.post("/expense", (req, res) => controller.create(req, res))
+router.post("/", (req, res) => controller.create(req, res))
 
-router.get("/expense/:expenseId", (req, res) => controller.getExpenseById(req, res))
+router.get("/:expenseId", (req, res) => controller.getExpenseById(req, res))
 
-router.get("/expenses", (req, res) => controller.listExpense(req, res))
+router.get("/", (req, res) => controller.listExpense(req, res))
 
-router.post("/expense/material-purchase", (req, res) => controller.registerMaterialPurchase(req, res))
+router.post("/material-purchase", (req, res) => controller.registerMaterialPurchase(req, res))
 
 export default router;

@@ -21,6 +21,11 @@ import { DeactivatePlanUseCase } from "../application/use-cases/plan/DeactivateP
 import { UpdatePlanUseCase } from "../application/use-cases/plan/UpdatePlanUseCase.js";
 import { CreateExpenseUseCase } from "../application/use-cases/expense/CreateExpenseUseCase.js";
 import { InMemoryExpenseRepository } from "./database/repositories/InMemoryExpenseRepository.js";
+import { ListMaterailsUseCase } from "../application/use-cases/material/ListMaterialsUseCase.js";
+import { GetMaterialByIdUseCase } from "../application/use-cases/material/GetMaterialByIdUseCase.js";
+import { DeactivateMaterialUseCase } from "../application/use-cases/material/DeactivateMaterialUseCase.js";
+import { UpdateMaterialUseCase } from "../application/use-cases/material/UpdateMaterialUseCase.js";
+import { CreateMaterialUseCase } from "../application/use-cases/material/CreateMaterialUseCase.js";
 
 
 //singleton manual
@@ -71,6 +76,14 @@ export const updatePlanUseCase = new UpdatePlanUseCase(planRepository)
 // Expense PlanController
 export const createExpenseUseCase = new CreateExpenseUseCase(expenseRepository)
 
+
+
+
+export const createMaterialUseCase = new CreateMaterialUseCase(materialRepository)
+export const listMaterailsUseCase = new ListMaterailsUseCase(materialRepository)
+export const getMaterialByIdUseCase = new GetMaterialByIdUseCase(materialRepository)
+export const deactivateMaterialUseCase = new DeactivateMaterialUseCase(materialRepository)
+export const updateMaterialUseCase = new UpdateMaterialUseCase(materialRepository)
 
 
 
