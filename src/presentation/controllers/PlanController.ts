@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
-import { createPlanUseCase, deactivatePlanUseCase, listPlansUseCase, updatePlanUseCase } from "../../infrastructure/container.js";
+import { createPlanUseCase, deactivatePlanUseCase, expenseRepository, listPlansUseCase, materialRepository, updatePlanUseCase } from "../../infrastructure/container.js";
 import { getPlanByIdUseCase } from "../../infrastructure/container.js";
+import { NotFoundError, BusinessRuleError } from "../../domain/errors/DomainErrors.js";
+import { RegisterMaterialPurchaseUseCase } from "../../application/use-cases/expense/RegisterMaterialPurchaseUseCase.js";
 
 export class PlanController {
 
@@ -10,8 +12,12 @@ export class PlanController {
             const result = await createPlanUseCase.execute(plan)
 
             return res.status(201).json(result)
-        } catch (error: any) {
-            return res.status(500).json({ message: error.message })
+        }catch(error:unknown) {
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
@@ -21,8 +27,16 @@ export class PlanController {
         const result = await getPlanByIdUseCase.execute(plan)
 
         return res.status(200).json(result)
-        } catch(error:any) {
-            return res.status(500).json({ message: error.message })
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
@@ -32,34 +46,56 @@ export class PlanController {
             const result = await listPlansUseCase.execute(plan)
 
             return res.status(200).json(result)
-        }catch(error: any){
-            return res.status(500).json({ message: error.message })
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
-
+     //###############     ojo     ###############
     async deactivatePlan(req: Request, res: Response) {
         try {
             const plan = req.body
             const result = await deactivatePlanUseCase.execute(plan)
 
             return res.status(200).json(result)
-        }catch(error:any) {
-            return res.status(500).json({ message: error.message })
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
     async updatePlan(req: Request<{id:string}>, res: Response) {
         try {
-        const {name, price, speed} = req.body
-        const result = await updatePlanUseCase.execute(req.params.id,
-            name, price, speed
-        )
+            const {name, price, speed} = req.body
+            const result = await updatePlanUseCase.execute(req.params.id,
+                name, price, speed
+            )
 
-        return res.status(200).json(result)
-        }catch(error:any) {
-            return res.status(500).json({ message: error.message })
+            return res.status(200).json(result)
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
-
-        
     }
 }

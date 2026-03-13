@@ -13,7 +13,7 @@ router.post("/", (req, res) => controller.create(req, res))
 
 router.get("/:expenseId", (req, res) => controller.getExpenseById(req, res))
 
-router.get("/", (req, res) => controller.listExpense(req, res))
+router.get("/", (req, res) => controller.listExpenses(req, res))
 
 router.post("/material-purchase", (req, res) => controller.registerMaterialPurchase(req, res))
 

@@ -10,8 +10,8 @@ export class DeactivateMaterialUseCase {
         private readonly materialRepository: MaterialRepository
     ) {}
 
-    async execute(name: string): Promise<Material | null> {
-        const material = await this.materialRepository.findByName(name)
+    async execute(id: string): Promise<Material | null> {
+        const material = await this.materialRepository.findByName(id)
 
         if(!material) {
             throw new NotFoundError("Material not found")

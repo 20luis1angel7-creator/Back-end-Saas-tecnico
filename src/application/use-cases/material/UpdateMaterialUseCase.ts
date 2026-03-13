@@ -9,14 +9,14 @@ export class UpdateMaterialUseCase {
         private readonly materialRepository: MaterialRepository
     ){}
 
-    async execute(name: string,
+    async execute(id: string, name: string,
         stock: number,
         minStock: number,
         unitPrice: number,
         active: boolean 
     ): Promise<Material | null> {
 
-        const material = await this.materialRepository.findById(name) 
+        const material = await this.materialRepository.findById(id) 
 
         if(!material) {
             throw new NotFoundError("Materila not found")

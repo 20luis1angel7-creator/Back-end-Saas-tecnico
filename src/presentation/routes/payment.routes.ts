@@ -7,7 +7,7 @@ const router = Router()
 
 const controller = new PaymentController
 
-router.post("/payments", (req, res) => controller.pay(req, res))
+router.post("/register", (req, res) => controller.registerPayment(req, res))
 
 router.get("/invoices/:invoiceId/payments", (req, res) => controller.getInvoicePayment(req, res))
 

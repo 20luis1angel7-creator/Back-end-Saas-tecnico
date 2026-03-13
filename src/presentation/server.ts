@@ -1,5 +1,5 @@
 import express  from "express";
-import clientRoutes from "./routes/clientRoutes.js"
+import clientRoutes from "./routes/client.Routes.js"
 import orderRoutes from "./routes/order.routes.js";
 import expenseRoutes from "./routes/expense.routes.js"
 import invoiceRoutes from "./routes/invoice.routes.js"

@@ -4,19 +4,23 @@ import { CreateExpenseUseCase } from "../../application/use-cases/expense/Create
 import { GetExpenseByIdUseCase } from "../../application/use-cases/expense/GetExpenseByIdUseCase.js";
 import { ListExpensesUseCase } from "../../application/use-cases/expense/ListExpensesUseCase.js";
 import { RegisterMaterialPurchaseUseCase } from "../../application/use-cases/expense/RegisterMaterialPurchaseUseCase.js";
-
+import { NotFoundError, BusinessRuleError } from "../../domain/errors/DomainErrors.js";
 
 export class ExpenseController {
 
     async create(req: Request, res: Response) {
         try {
-        const usecase = new CreateExpenseUseCase(expenseRepository)
+            const usecase = new CreateExpenseUseCase(expenseRepository)
 
-        const result = await usecase.execute(req.body)
+            const result = await usecase.execute(req.body)
 
-        return res.status(201).json(result)
-        } catch(error:any) {
-            return res.status(500).json({ message: error.message })
+            return res.status(201).json(result)
+        }catch(error:unknown) {
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
@@ -27,12 +31,20 @@ export class ExpenseController {
             const result = await usecase.execute(req.params.expenseId)
 
             return res.status(200).json(result)
-        } catch(error: any) {
-            return res.status(500).json({ message: error.message })
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
-    async listExpense(req: Request, res: Response) {
+    async listExpenses(req: Request, res: Response) {
         try {
             
             const usecase = new ListExpensesUseCase(expenseRepository)
@@ -40,8 +52,16 @@ export class ExpenseController {
             const result = await usecase.execute()
 
             return res.status(200).json(result)
-        } catch(error: any) {
-            return res.status(500).json({ message: error.message })
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
@@ -57,9 +77,17 @@ export class ExpenseController {
                 req.body.date
 
              )
-             return res.status(200).json(result)
-        } catch (error: any) {
-            return res.status(500).json({ message: error.message })
+             return res.status(201).json(result)
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND" ,message: error.message })
+            }
+
+            if (error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message: "Internal server error" })
         }
     }
 }

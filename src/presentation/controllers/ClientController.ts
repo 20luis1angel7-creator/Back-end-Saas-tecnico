@@ -28,7 +28,7 @@ export class ClientController{
             //el cliente fue creado
             return res.status(201).json(result);
         //si el caso de uso lanza error    
-        } catch (error: any) {
+        } catch (error: unknown) {
             if (error instanceof BusinessRuleError) {
                 return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message });
             }
@@ -42,7 +42,7 @@ export class ClientController{
         const usecase = new ListClientsUseCase(clientRepository);
         const result = await usecase.execute()
 
-        res.json(result)
+        return res.status(200).json(result)
     }
 
     async getById(req: Request<{ id: string}>, res: Response) {
@@ -51,7 +51,7 @@ export class ClientController{
             const result = await usecase.execute(req.params.id);
 
             res.status(200).json(result)
-        } catch (error: any) {
+        } catch (error: unknown) {
             if(error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND", message: error.message });
             }
@@ -65,8 +65,8 @@ export class ClientController{
             const usecase = new DeleteClientUseCase(clientRepository);
             const result = await usecase.execute(req.params.id);
 
-            res.status(204).send()
-        } catch (error: any) {
+            res.status(204).json(result)
+        } catch (error: unknown) {
             if(error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND", message: error.message})
             }
@@ -82,8 +82,8 @@ export class ClientController{
             const usecase = new ActivateClientUseCase(clientRepository, orderRepository);
             const result = await usecase.execute(req.params.id);
 
-            res.json(result);
-        } catch (error: any) {
+            res.status(200).json(result);
+        } catch (error: unknown) {
             if( error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND", message: error.message })
             }
@@ -100,8 +100,8 @@ export class ClientController{
             const usecase = new SuspendClientUseCase(clientRepository);
             const result = await usecase.execute(req.params.id);
 
-            res.json(result)
-        } catch (error: any) {
+            res.status(200).json(result)
+        } catch (error: unknown) {
             if (error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND", message: error.message})
             }
@@ -121,8 +121,8 @@ export class ClientController{
         const result = await usecase.execute(req.params.id,
             name, nickname, address, phone, planId
         );
-        res.json(result)
-        } catch (error: any) {
+        res.status(200).json(result)
+        } catch (error: unknown) {
             if (error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND", message: error.message })
             }

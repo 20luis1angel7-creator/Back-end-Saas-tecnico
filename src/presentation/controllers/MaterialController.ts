@@ -1,10 +1,11 @@
-import { use } from "react";
-import { createMaterialUseCase } from "../../infrastructure/container.js";
+import { createMaterialUseCase, expenseRepository, materialRepository } from "../../infrastructure/container.js";
 import { Request, Response } from "express";
 import { getMaterialByIdUseCase } from "../../infrastructure/container.js";
 import { listMaterailsUseCase } from "../../infrastructure/container.js";
 import { deactivateMaterialUseCase } from "../../infrastructure/container.js";
 import { updateMaterialUseCase } from "../../infrastructure/container.js";
+import { BusinessRuleError, NotFoundError } from "../../domain/errors/DomainErrors.js";
+import { RegisterMaterialPurchaseUseCase } from "../../application/use-cases/expense/RegisterMaterialPurchaseUseCase.js";
 
 export class MaterialController {
 
@@ -13,55 +14,90 @@ export class MaterialController {
             const material = req.body
             const result = await createMaterialUseCase.execute(material)
 
-
             return res.status(201).json(result)
-        }catch(error:any) {
-            return res.status(500).json({ message: error.message })
+        }catch(error:unknown) {
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
-    async GetById(req: Request<{id: string}>, res: Response) {
+    async getById(req: Request<{id: string}>, res: Response) {
         try {
-        const material = req.params.id
+            const material = req.params.id
 
-        const result = await getMaterialByIdUseCase.execute(material)
+            const result = await getMaterialByIdUseCase.execute(material)
 
-        return res.status(200).json(result)
-        } catch(error:any) {
-            return res.status(500).json({ message: error.message })
+            return res.status(200).json(result)
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
     async listmaterials(req: Request<{companyId: string}>, res: Response) {
         try {
-           const material = req.params.companyId
+            const material = req.params.companyId
             const result = await listMaterailsUseCase.execute(material)
 
             return res.status(200).json(result)
-        }catch(error:any) {
-            return res.status(500).json({ message: error.message })
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
-    async deactivate(req: Request<{name: string}>, res: Response) {
+    async deactivate(req: Request<{id: string}>, res: Response) {
         try {
-            const material = req.params.name
+            const material = req.params.id
             const result = await deactivateMaterialUseCase.execute(material)
             return res.status(200).json(result)
-        }catch(error:any) {
-            return res.status(500).json({ message: error.message })
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 
-    async update(req: Request<{name: string}>, res: Response) {
+    async update(req: Request<{id: string}>, res: Response) {
         try {
-            const {name,stock, minStock, unitPrice, active} = req.body
+            const {id,name,stock, minStock, unitPrice, active} = req.body
             const result = await updateMaterialUseCase.execute(
-                req.params.name,stock,minStock,unitPrice,active
+                req.params.id,name,stock,minStock,unitPrice,active
             )
             return res.status(200).json(result)
-        }catch(error:any) {
-            return res.status(500).json({ message: error.message })
+        }catch(error:unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message})
+            }
+
+            if(error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
 }
