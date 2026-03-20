@@ -116,11 +116,11 @@ export class ClientController{
     async update(req: Request<{id: string}>, res:Response) {
         try {
         const usecase = new UpdateClientUseCase(clientRepository);
-        const {name, nickname, address, phone, planId} = req.body;
+        const {name, nickname, address, phone, planId, routerSerial} = req.body;
 
-        const result = await usecase.execute(req.params.id,
-            name, nickname, address, phone, planId
-        );
+        const result = await usecase.execute({id: req.params.id,
+            name, nickname, address, phone, planId, routerSerial
+        });
         res.status(200).json(result)
         } catch (error: unknown) {
             if (error instanceof NotFoundError) {

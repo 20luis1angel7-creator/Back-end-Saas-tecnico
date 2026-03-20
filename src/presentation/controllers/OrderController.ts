@@ -6,6 +6,7 @@ import { CancelOrderUseCase } from "../../application/use-cases/order/CancelOrde
 import { materialRepository } from "../../infrastructure/container.js";
 import { orderMaterialUsageRepository } from "../../infrastructure/container.js";
 import { NotFoundError, BusinessRuleError } from "../../domain/errors/DomainErrors.js";
+import { ListOrdersUseCase } from "../../application/use-cases/order/ListOrdersUseCase.js";
 
 export class OrderController {
     async getClientById( req: Request<{ clientId: string}>, res: Response) {
@@ -89,7 +90,13 @@ export class OrderController {
             return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
-    
+
+    async list(req: Request, res: Response) {
+        const usecase = new ListOrdersUseCase(orderRepository)
+        const result = await usecase.execute()
+
+        return res.status(200).json(result)
+    }   
 }
 
 

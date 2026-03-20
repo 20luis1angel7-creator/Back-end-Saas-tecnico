@@ -1,3 +1,4 @@
+import { NotFoundError } from "../../../domain/errors/DomainErrors.js";
 import { InvoiceRepository } from "../../../domain/repositories/InvoiceRepository.js";
 import { RecalculateClienStatusUseCase } from "./RecalculateClientStatusUseCase.js";
 
@@ -11,7 +12,7 @@ export class RegisterInvoicePaymentUseCase{
         const invoice = await this.invoiceRepository.findById(invoiceId)
         //Validar existencia
         if (!invoice) {
-            throw new Error("Invoice not found");
+            throw new NotFoundError("Invoice not found");
         }
         //Registrar el pago
         invoice.pay(paymentDate);

@@ -9,7 +9,7 @@ router.post("/", (req, res) => controller.create(req, res))
 
 router.get("/:id", (req, res) => controller.getPlanById(req, res))
 
-router.get("/companies/:companyId/plans", (req, res) => controller.listPlans(req, res))
+router.get("/company/:companyId", (req, res) => controller.listPlans(req, res))
 
 router.patch("/:id/deactivate", (req, res) => controller.deactivatePlan(req, res))
 

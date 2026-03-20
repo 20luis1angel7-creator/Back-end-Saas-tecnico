@@ -17,7 +17,8 @@ describe("CreateClientUseCase", () => {
             cedula: "123456789",
             address: "Santo Domingo",
             phone: "8090000000",
-            planId: "plan-basic"
+            planId: "plan-basic",
+            routerSerial: "router-123"
         });
         expect(result.id).toBeDefined();
         expect(result.status).toBe("PENDING_INSTALLATION");
@@ -36,7 +37,8 @@ describe("CreateClientUseCase", () => {
             cedula: "123456789",
             address: "Santo Domingo",
             phone: "8090000000",
-            planId: "plan-basic"
+            planId: "plan-basic",
+            routerSerial: "router-123"
         });
         
         await expect(
@@ -46,7 +48,8 @@ describe("CreateClientUseCase", () => {
                 cedula: "123456789",
                 address: "Santiago",
                 phone: "8090000001",
-                planId: "plan-basic"
+                planId: "plan-basic",
+                routerSerial: "router-123"
             })
         ).rejects.toThrow()
     });
@@ -64,7 +67,8 @@ describe("CreateClientUseCase", () => {
                 cedula: "123456789",
                 address: "Santo Domingo",
                 phone: "8090000000",
-                planId: ""
+                planId: "",
+                routerSerial: "router-123"
             })
         ).rejects.toThrow()
     })
@@ -82,7 +86,8 @@ describe("CreateClientUseCase", () => {
                 cedula: "123456789",
                 address: "Santo Domingo",
                 phone: "8090000000",
-                planId: "plan-basic"
+                planId: "plan-basic",
+                routerSerial: "router-123"
             })
         ).rejects.toThrow()
     })

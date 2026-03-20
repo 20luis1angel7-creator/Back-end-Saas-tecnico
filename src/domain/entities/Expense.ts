@@ -45,6 +45,10 @@ export class Expense {
   get type() {
     return this.props.type;
   }
+
+  get companyId() {
+    return this.props.companyId;
+  }
 }
 
 

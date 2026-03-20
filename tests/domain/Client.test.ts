@@ -10,7 +10,9 @@ describe("Client", () => {
             "123456789",
             "Santo Domingo",
             "8091234567",
-            "plan-basic"
+            "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
         );
         expect(client.name).toBe("Luis");
         expect(client.status).toBe("PENDING_INSTALLATION");
@@ -24,7 +26,9 @@ describe("Client", () => {
             "123456789",
             "Santo Domingo",
             "8091234567",
-            "plan-basic"
+            "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
         );
         client.activate();
         expect(client.status).toBe("ACTIVE");
@@ -38,7 +42,9 @@ describe("Client", () => {
             "123456789",
             "Santo Domingo",
             "8090000000",
-            "plan-basic"
+            "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
         );
         client.activate();
 

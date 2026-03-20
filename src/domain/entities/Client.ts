@@ -16,7 +16,7 @@ export class Client {
         public phone: string,
         public planId: string,
         public status: ClientStatus = "PENDING_INSTALLATION",
-        public routerSerial?: string
+        public routerSerial: string
     ) {
         this.validate();
     }
@@ -73,13 +73,15 @@ export class Client {
         nickname: string,
         address: string,
         phone: string,
-        planId: string
+        planId: string,
+        routerSerial: string
     ) {
         this.name = name;
         this.nickname = nickname;
         this.address = address;
         this.phone = phone;
         this.planId = planId;
+        this.routerSerial = routerSerial
     }
 }
 

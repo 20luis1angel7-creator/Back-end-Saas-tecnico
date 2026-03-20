@@ -19,7 +19,9 @@ describe("Delete clien use casse", () => {
                         "123456789",
                         "Santo Domingo",
                         "8090000000",
-                        "plan-basic"
+                        "plan-basic",
+                        "PENDING_INSTALLATION",
+                        "router-123"
         )
         //guardar cliente en repositorio
         await repository.save(client);
@@ -55,7 +57,9 @@ describe("Delete clien use casse", () => {
             "123456789",
             "Santo Domingo",
             "8090000000",
-            "plan-basic"
+            "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
         )
         //Se cambia su estado a ACTIVE.
         client.activate();

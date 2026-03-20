@@ -14,19 +14,20 @@ export class InMemoryExpenseRepository implements ExpenseRepository {
     async save(expense: Expense): Promise<void> {
         const existingExpense = await this.expenses.findIndex(e => e.id === expense.id)
 
-        if (existingExpense <= 0) {
-            this.expenses[existingExpense] = expense
-        } else {
+        if (existingExpense === -1) {
             this.expenses.push(expense)
+        } else {
+            this.expenses[existingExpense] = expense
         }
+            
     }
 
     async findAll(): Promise<Expense[]> {
         return this.expenses
     }
 
-    async findByCompanyId(id: string): Promise<Expense | null> {
-        return this.expenses.find(e => e.id === id) || null
+    async findByCompanyId(companyId: string): Promise<Expense[]> {
+        return this.expenses.filter(e => e.companyId === companyId)
     }
 
     async findExpenseById(expenseId: string): Promise<Expense | null> {

@@ -19,7 +19,9 @@ describe("ActivateClientUseCase", () => {
             "123456789",
             "Santo Domingo",
             "8090000000",
-            "plan-basic"
+            "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
         );
 
         await clientRepository.save(client);
@@ -63,7 +65,9 @@ describe("ActivateClientUseCase", () => {
             "123456789",
             "Santo Domingo",
             "8090000000",
-            "plan-basic"
+            "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
         );
 
         await clientRepository.save(client);

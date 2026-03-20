@@ -16,7 +16,9 @@ describe("Get client by id use case", () => {
                         "123456789",
                         "Santo Domingo",
                         "8090000000",
-                        "plan-basic"
+                        "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
         )
 
         await repository.save(client);

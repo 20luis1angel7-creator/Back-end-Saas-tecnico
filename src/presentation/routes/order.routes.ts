@@ -11,6 +11,7 @@ router.patch("/:id/complete", controller.complete.bind(controller));
 router.patch("/:id/start", controller.start.bind(controller));
 
 router.patch("/:id/cancel", controller.cancel.bind(controller))
+router.get("/", controller.list.bind(controller))
 
 
 export default router;

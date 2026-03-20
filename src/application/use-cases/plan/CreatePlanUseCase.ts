@@ -16,7 +16,7 @@ export class CreatePlanUseCase {
         private readonly planRepository: PlanRepository
     ) {}
 
-    async execute(data: CreatePlanDTO): Promise<void> {
+    async execute(data: CreatePlanDTO): Promise<Plan> {
         //Buscar plan existente
         const existingPlan = await this.planRepository.findByNameAndCompany(data.companyId,data.name)
 
@@ -34,5 +34,6 @@ export class CreatePlanUseCase {
         //Guardar el plan en el repositorio
         await this.planRepository.save(plan)
 
+        return plan
     }
 }

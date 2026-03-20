@@ -201,6 +201,73 @@ status, getters, status(start, completed, cancelled)
 
 
 
+#   lo que falta en mi back   #
+
+Tu backend no tiene:
+
+crear order
+listar todas las orders
+ver una order por id
+editar order
+eliminar order
+
+Entonces si en el front hiciste páginas de:
+
+/orders
+/orders/new
+/orders/:id
+/orders/:id/edit
+eso no está respaldado por el backend todavía.
+
+- falta editar expense
+- falta delete expense
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

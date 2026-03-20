@@ -7,10 +7,11 @@ import { MaterialRepository } from "../../../domain/repositories/MaterialReposit
 
 
 interface MaterialDTO {
-    _name:string,
-    _stock:number,
-    _minStock: number,
-    _unitPrice: number
+    name:string,
+    stock:number,
+    minStock: number,
+    unitPrice: number
+    
 }
 
 export class CreateMaterialUseCase {
@@ -23,10 +24,10 @@ export class CreateMaterialUseCase {
 
         const material = new Material(
             randomUUID(),
-            data._name,
-            data._stock,
-            data._minStock,
-            data._unitPrice,
+            data.name,
+            data.stock,
+            data.minStock,
+            data.unitPrice,
         )
 
         await this.materialRepository.save(material)

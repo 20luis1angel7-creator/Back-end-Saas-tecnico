@@ -16,21 +16,24 @@ describe("Update client usecase", () => {
                             "123456789",
                             "Santo Domingo",
                             "8090000000",
-                            "plan-basic"
+                            "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
                         );
         //guardar en el repo
         await repository.save(client);
         //crear case de uso(inyecta el repo)
         const usecase = new UpdateClientUseCase(repository);
         //Actualiza el cliente con ese id y cambia:
-        const result = await usecase.execute(
-            client.id,
-            "Juan",
-            "juan01",
-            "Santiago",
-            "8090001000",
-            "plan-pro"
-        )
+        const result = await usecase.execute({
+            id: client.id,
+            name: "Juan",
+            nickname: "juan01",
+            address: "Santiago",
+            phone: "8090001000",
+            planId: "plan-pro",
+            routerSerial: "router-123"
+        });
 
         expect(result.name).toBe("Juan");//Verifica que el nombre cambió.
         expect(result.address).toBe("Santiago");//Verifica que la dirección cambió.
@@ -44,14 +47,15 @@ describe("Update client usecase", () => {
         const usecase = new UpdateClientUseCase(repository);
         //ejecuta id falso
         await expect(
-            usecase.execute(
-                "fake-id",
-                "Juan",
-                "juan01",
-                "Santiago",
-                "8090001000",
-                "plan-pro"
-            )
+            usecase.execute({
+                id: "fake-id",
+                name: "Juan",
+                nickname: "juan01",
+                address: "Santiago",
+                phone: "8090001000",
+                planId: "plan-pro",
+                routerSerial: "router-123"
+            })
         ).rejects.toThrow("Client not found");
     })
 })

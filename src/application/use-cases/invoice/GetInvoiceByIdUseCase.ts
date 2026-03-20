@@ -1,4 +1,5 @@
 import { Invoice } from "../../../domain/entities/Invoice.js";
+import { NotFoundError } from "../../../domain/errors/DomainErrors.js";
 import { InvoiceRepository } from "../../../domain/repositories/InvoiceRepository.js";
 
 
@@ -10,7 +11,7 @@ export class GetInvoiceByIdUseCase {
         const invoice = await this.invoiceRepository.findById(invoiceId)
 
         if(!invoice) {
-            throw new Error("Invoice not found")
+            throw new NotFoundError("Invoice not found")
         }
 
         return invoice

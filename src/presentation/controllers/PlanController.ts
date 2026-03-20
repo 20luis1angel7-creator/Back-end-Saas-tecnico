@@ -58,11 +58,10 @@ export class PlanController {
             return res.status(500).json({ type: "INTERNAL_ERROR", message:  "Internal server error"})
         }
     }
-     //###############     ojo     ###############
-    async deactivatePlan(req: Request, res: Response) {
+    
+    async deactivatePlan(req: Request<{id: string}>, res: Response) {
         try {
-            const plan = req.body
-            const result = await deactivatePlanUseCase.execute(plan)
+            const result = await deactivatePlanUseCase.execute(req.params.id)
 
             return res.status(200).json(result)
         }catch(error:unknown) {

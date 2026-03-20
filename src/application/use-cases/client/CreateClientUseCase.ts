@@ -3,7 +3,7 @@ import type { ClientRepository } from "../../../domain/repositories/ClientReposi
 import { randomUUID } from "crypto";
 import { Order } from "../../../domain/entities/Order.js";
 import { OrderRepository } from "../../../domain/repositories/OrderRepository.js";
-
+import { BusinessRuleError } from "../../../domain/errors/DomainErrors.js";
 
 interface CreateClientDTO {
     name: string;
@@ -12,6 +12,7 @@ interface CreateClientDTO {
     address: string;
     phone: string;
     planId: string;
+    routerSerial: string;
 }
 
 export class CreateClientUseCase {
@@ -25,7 +26,7 @@ export class CreateClientUseCase {
         const existingClient = await this.clientrepository.findByCedula(data.cedula);
 
         if (existingClient) {
-            throw new Error("Client with this cedula already exists");
+            throw new BusinessRuleError("Client with this cedula already exists");
         }
 
         //crea entidad(la cantidad valida a los demas)
@@ -36,7 +37,9 @@ export class CreateClientUseCase {
             data.cedula,
             data.address,
             data.phone,
-            data.planId
+            data.planId,
+            "PENDING_INSTALLATION",
+            data.routerSerial
         )
 
         //guardar en repositorio

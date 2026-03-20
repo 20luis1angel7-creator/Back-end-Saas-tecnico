@@ -25,7 +25,9 @@ describe("List clients usecase", () => {
                     "123456789",
                     "Santo Domingo",
                     "8090000000",
-                    "plan-basic"
+                    "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
                 );
         const client2 = new Client (
             randomUUID(),
@@ -34,7 +36,9 @@ describe("List clients usecase", () => {
             "123456789",
             "Santo Domingo",
             "8090000000",
-            "plan-basic"
+            "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
         );
 
         await repository.save(client);

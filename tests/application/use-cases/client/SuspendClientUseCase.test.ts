@@ -15,7 +15,9 @@ describe("SuspendClientUseCase", () => {
             "123456789",
             "Santo Domingo",
             "8090000000",
-            "plan-basic"
+            "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
         );
 
         client.activate();//activar 
@@ -49,7 +51,9 @@ describe("SuspendClientUseCase", () => {
             "123456789",
             "Santo Domingo",
             "8090000000",
-            "plan-basic"
+            "plan-basic",
+            "PENDING_INSTALLATION",
+            "router-123"
         );
         //guardar
         await repository.save(client)
