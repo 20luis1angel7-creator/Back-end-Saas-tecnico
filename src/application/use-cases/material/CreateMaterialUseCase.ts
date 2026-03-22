@@ -1,6 +1,5 @@
 import { randomUUID } from "node:crypto"
 import { Material } from "../../../domain/entities/Material.js"
-import { NotFoundError } from "../../../domain/errors/DomainErrors.js"
 import { MaterialRepository } from "../../../domain/repositories/MaterialRepository.js"
 
 

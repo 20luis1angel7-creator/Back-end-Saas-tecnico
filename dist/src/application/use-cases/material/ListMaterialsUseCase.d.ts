@@ -3,6 +3,6 @@ import { MaterialRepository } from "../../../domain/repositories/MaterialReposit
 export declare class ListMaterailsUseCase {
     private readonly materialRepository;
     constructor(materialRepository: MaterialRepository);
-    execute(id: string): Promise<Material[]>;
+    execute(): Promise<Material[]>;
 }
 //# sourceMappingURL=ListMaterialsUseCase.d.ts.map

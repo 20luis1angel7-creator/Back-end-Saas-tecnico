@@ -33,8 +33,7 @@ export class PlanController {
     }
     async listPlans(req, res) {
         try {
-            const plan = req.params.companyId;
-            const result = await listPlansUseCase.execute(plan);
+            const result = await listPlansUseCase.execute();
             return res.status(200).json(result);
         }
         catch (error) {

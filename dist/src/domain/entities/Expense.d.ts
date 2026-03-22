@@ -1,7 +1,6 @@
 export type ExpenseType = "EMPLOYEE" | "PROVIDER" | "MATERIAL" | "MAINTENANCE";
 export interface ExpenseProps {
     id: string;
-    companyId: string;
     type: ExpenseType;
     description: string;
     amount: number;
@@ -15,6 +14,5 @@ export declare class Expense {
     get id(): string;
     get amount(): number;
     get type(): ExpenseType;
-    get companyId(): string;
 }
 //# sourceMappingURL=Expense.d.ts.map

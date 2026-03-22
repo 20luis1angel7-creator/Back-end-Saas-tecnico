@@ -36,8 +36,7 @@ export class MaterialController {
     }
     async listmaterials(req, res) {
         try {
-            const material = req.params.companyId;
-            const result = await listMaterailsUseCase.execute(material);
+            const result = await listMaterailsUseCase.execute();
             return res.status(200).json(result);
         }
         catch (error) {
@@ -68,7 +67,7 @@ export class MaterialController {
     }
     async update(req, res) {
         try {
-            const { id, name, stock, minStock, unitPrice, active } = req.body;
+            const { name, stock, minStock, unitPrice, active } = req.body;
             const result = await updateMaterialUseCase.execute(req.params.id, name, stock, minStock, unitPrice, active);
             return res.status(200).json(result);
         }

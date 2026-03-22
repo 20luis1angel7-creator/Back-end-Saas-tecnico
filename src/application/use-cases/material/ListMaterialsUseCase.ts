@@ -8,7 +8,7 @@ export class ListMaterailsUseCase {
         private readonly materialRepository: MaterialRepository
     ){}
 
-    async execute(id: string): Promise<Material[]> {
+    async execute(): Promise<Material[]> {
         const material = await this.materialRepository.findAll()
 
         return material

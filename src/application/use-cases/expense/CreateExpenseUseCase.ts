@@ -6,7 +6,6 @@ import { UuidGenerator } from "../../../infrastructure/services/IdGenerator.js";
 
 
 interface ExpenseDTO {
-    companyId: string;
     type: ExpenseType;
     description: string;
     amount: number;
@@ -20,7 +19,7 @@ export class CreateExpenseUseCase {
     ) {}
 
     async execute(dato: ExpenseDTO): Promise<void> {
-        const existigexpense = await this.expenseRepository.findByCompanyId(dato.companyId)
+        const existigexpense = await this.expenseRepository.findAll()
 
         if(!existigexpense) {
             throw new NotFoundError("Expense not found")
@@ -28,7 +27,6 @@ export class CreateExpenseUseCase {
 
         const expense = new Expense({
             id: randomUUID(),
-            companyId: dato.companyId,
             type: dato.type,
             description: dato.description,
             amount: dato.amount,

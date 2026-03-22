@@ -4,7 +4,6 @@ export declare class InMemoryExpenseRepository implements ExpenseRepository {
     private expenses;
     save(expense: Expense): Promise<void>;
     findAll(): Promise<Expense[]>;
-    findByCompanyId(companyId: string): Promise<Expense[]>;
     findExpenseById(expenseId: string): Promise<Expense | null>;
 }
 //# sourceMappingURL=InMemoryExpenseRepository.d.ts.map

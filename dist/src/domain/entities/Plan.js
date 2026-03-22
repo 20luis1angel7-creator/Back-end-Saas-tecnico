@@ -1,6 +1,5 @@
 export class Plan {
     id;
-    companyId;
     name;
     price;
     speed;
@@ -8,7 +7,6 @@ export class Plan {
     createdAt = new Date();
     constructor(props) {
         this.id = props.id;
-        this.companyId = props.companyId;
         this.name = props.name;
         this.price = props.price;
         this.speed = props.speed;

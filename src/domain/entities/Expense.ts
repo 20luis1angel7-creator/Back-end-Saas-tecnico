@@ -8,7 +8,6 @@ export type ExpenseType =
 
 export interface ExpenseProps {
   id: string,
-  companyId: string;
   type: ExpenseType;
   description: string;
   amount: number;
@@ -44,10 +43,6 @@ export class Expense {
 
   get type() {
     return this.props.type;
-  }
-
-  get companyId() {
-    return this.props.companyId;
   }
 }
 

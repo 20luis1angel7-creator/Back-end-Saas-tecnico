@@ -4,7 +4,6 @@ describe("Plan", () => {
     function createValidPlan(overrides = {}) {
         return new Plan({
             id: "1",
-            companyId: "mycompany01",
             name: "Basic Plan",
             price: 1000,
             speed: 20,

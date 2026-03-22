@@ -4,9 +4,7 @@ export declare class PlanController {
     getPlanById(req: Request<{
         id: string;
     }>, res: Response): Promise<Response<any, Record<string, any>>>;
-    listPlans(req: Request<{
-        companyId: string;
-    }>, res: Response): Promise<Response<any, Record<string, any>>>;
+    listPlans(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
     deactivatePlan(req: Request<{
         id: string;
     }>, res: Response): Promise<Response<any, Record<string, any>>>;

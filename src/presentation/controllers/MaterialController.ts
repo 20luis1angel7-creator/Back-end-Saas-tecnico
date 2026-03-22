@@ -5,7 +5,6 @@ import { listMaterailsUseCase } from "../../infrastructure/container.js";
 import { deactivateMaterialUseCase } from "../../infrastructure/container.js";
 import { updateMaterialUseCase } from "../../infrastructure/container.js";
 import { BusinessRuleError, NotFoundError } from "../../domain/errors/DomainErrors.js";
-import { RegisterMaterialPurchaseUseCase } from "../../application/use-cases/expense/RegisterMaterialPurchaseUseCase.js";
 
 export class MaterialController {
 
@@ -44,10 +43,9 @@ export class MaterialController {
         }
     }
 
-    async listmaterials(req: Request<{companyId: string}>, res: Response) {
+    async listmaterials(req: Request, res: Response) {
         try {
-            const material = req.params.companyId
-            const result = await listMaterailsUseCase.execute(material)
+            const result = await listMaterailsUseCase.execute()
 
             return res.status(200).json(result)
         }catch(error:unknown) {
@@ -83,7 +81,7 @@ export class MaterialController {
 
     async update(req: Request<{id: string}>, res: Response) {
         try {
-            const {id,name,stock, minStock, unitPrice, active} = req.body
+            const {name,stock, minStock, unitPrice, active} = req.body
             const result = await updateMaterialUseCase.execute(
                 req.params.id,name,stock,minStock,unitPrice,active
             )

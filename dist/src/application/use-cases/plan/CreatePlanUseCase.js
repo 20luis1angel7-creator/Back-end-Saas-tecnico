@@ -8,14 +8,13 @@ export class CreatePlanUseCase {
     }
     async execute(data) {
         //Buscar plan existente
-        const existingPlan = await this.planRepository.findByNameAndCompany(data.companyId, data.name);
+        const existingPlan = await this.planRepository.findById(data.id);
         if (existingPlan) {
             throw new BusinessRuleError("Plan with this name already exists");
         }
         //Crear un nuevo plan
         const plan = new Plan({
             id: randomUUID(),
-            companyId: data.companyId,
             name: data.name,
             price: data.price,
             speed: data.speed

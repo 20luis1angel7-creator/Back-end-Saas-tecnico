@@ -1,7 +1,6 @@
 import { ExpenseType } from "../../../domain/entities/Expense.js";
 import { ExpenseRepository } from "../../../domain/repositories/ExpenseRepository.js";
 interface ExpenseDTO {
-    companyId: string;
     type: ExpenseType;
     description: string;
     amount: number;

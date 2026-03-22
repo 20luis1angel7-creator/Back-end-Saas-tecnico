@@ -5,7 +5,7 @@ import { randomUUID } from "node:crypto";
 
 //esto es un “molde” que dice cómo debe lucir la información que recibimos para crear un plan.
 interface CreatePlanDTO {
-    companyId: string,
+    id:string,
     name: string,
     price: number,
     speed: number,
@@ -18,7 +18,7 @@ export class CreatePlanUseCase {
 
     async execute(data: CreatePlanDTO): Promise<Plan> {
         //Buscar plan existente
-        const existingPlan = await this.planRepository.findByNameAndCompany(data.companyId,data.name)
+        const existingPlan = await this.planRepository.findById(data.id)
 
         if (existingPlan) {
             throw new BusinessRuleError("Plan with this name already exists")
@@ -26,7 +26,6 @@ export class CreatePlanUseCase {
         //Crear un nuevo plan
         const plan = new Plan({
             id: randomUUID(),
-            companyId: data.companyId,
             name: data.name,
             price: data.price,
             speed: data.speed

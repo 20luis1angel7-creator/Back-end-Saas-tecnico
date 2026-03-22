@@ -1,6 +1,5 @@
 type PlanProps = {
     id: string;
-    companyId: string;
     name: string;
     price: number;
     speed: number;
@@ -10,7 +9,6 @@ type PlanProps = {
 
 export class Plan {
     public readonly id: string;
-    public readonly companyId: string;
     public name: string;
     public price: number;
     public speed: number;
@@ -20,7 +18,6 @@ export class Plan {
 
     constructor(props: PlanProps) {
         this.id = props.id;
-        this.companyId = props.companyId;
         this.name = props.name;
         this.price = props.price;
         this.speed = props.speed;

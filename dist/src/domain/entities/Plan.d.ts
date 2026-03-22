@@ -1,6 +1,5 @@
 type PlanProps = {
     id: string;
-    companyId: string;
     name: string;
     price: number;
     speed: number;
@@ -9,7 +8,6 @@ type PlanProps = {
 };
 export declare class Plan {
     readonly id: string;
-    readonly companyId: string;
     name: string;
     price: number;
     speed: number;

@@ -72,7 +72,6 @@ export class ExpenseController {
             const result = await usecase.execute(
                 req.body.materialId,
                 req.body.quantity,
-                req.body.companyId,
                 req.body.description,
                 req.body.date
 

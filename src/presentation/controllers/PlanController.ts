@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import { createPlanUseCase, deactivatePlanUseCase, expenseRepository, listPlansUseCase, materialRepository, updatePlanUseCase } from "../../infrastructure/container.js";
+import { createPlanUseCase, deactivatePlanUseCase,listPlansUseCase, updatePlanUseCase } from "../../infrastructure/container.js";
 import { getPlanByIdUseCase } from "../../infrastructure/container.js";
 import { NotFoundError, BusinessRuleError } from "../../domain/errors/DomainErrors.js";
-import { RegisterMaterialPurchaseUseCase } from "../../application/use-cases/expense/RegisterMaterialPurchaseUseCase.js";
 
 export class PlanController {
 
@@ -40,10 +39,9 @@ export class PlanController {
         }
     }
 
-    async listPlans(req: Request<{companyId:string}>, res: Response) {
+    async listPlans(req: Request, res: Response) {
         try {
-            const plan = req.params.companyId
-            const result = await listPlansUseCase.execute(plan)
+            const result = await listPlansUseCase.execute()
 
             return res.status(200).json(result)
         }catch(error:unknown) {

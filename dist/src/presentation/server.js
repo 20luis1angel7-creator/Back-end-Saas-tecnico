@@ -3,8 +3,6 @@ import cors from "cors";
 import clientRoutes from "./routes/client.Routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import expenseRoutes from "./routes/expense.routes.js";
-import invoiceRoutes from "./routes/invoice.routes.js";
-import paymentRoutes from "./routes/payment.routes.js";
 import planRoutes from "./routes/plan.routes.js";
 import materialRoutes from "./routes/material.routes.js";
 export function startServer() {
@@ -20,8 +18,6 @@ export function startServer() {
     app.use("/clients", clientRoutes);
     app.use("/orders", orderRoutes);
     app.use("/expenses", expenseRoutes);
-    app.use("/invoices", invoiceRoutes);
-    app.use("/payments", paymentRoutes);
     app.use("/plans", planRoutes);
     app.use("/materials", materialRoutes);
     //Defines el puerto donde corre el servidor.

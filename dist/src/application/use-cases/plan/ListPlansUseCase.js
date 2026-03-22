@@ -4,8 +4,8 @@ export class ListPlansUseCase {
     constructor(planRepository) {
         this.planRepository = planRepository;
     }
-    async execute(companyId) {
-        const company = await this.planRepository.findByCompany(companyId);
+    async execute() {
+        const company = await this.planRepository.findAll();
         if (!company) {
             throw new NotFoundError("Plan not found");
         }

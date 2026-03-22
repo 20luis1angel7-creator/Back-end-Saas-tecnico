@@ -1,7 +1,7 @@
 import { PlanRepository } from "../../../domain/repositories/PlanRepository.js";
 import { Plan } from "../../../domain/entities/Plan.js";
 interface CreatePlanDTO {
-    companyId: string;
+    id: string;
     name: string;
     price: number;
     speed: number;

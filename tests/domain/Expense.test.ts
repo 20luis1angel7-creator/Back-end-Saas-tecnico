@@ -5,7 +5,6 @@ describe("Expense entity", () => {
   it("should create a valid expense", () => {
     const expense = new Expense({
       id: "1",
-      companyId: "company-1",
       type: "EMPLOYEE",
       description: "Salary payment",
       amount: 1000,
@@ -19,7 +18,6 @@ describe("Expense entity", () => {
     expect(() => {
       new Expense({
         id: "1",
-        companyId: "company-1",
         type: "EMPLOYEE",
         description: "Invalid expense",
         amount: -50,
@@ -33,7 +31,6 @@ describe("Expense entity", () => {
     expect(() => {
       new Expense({
         id: "1",
-        companyId: "company-1",
         type: "EMPLOYEE",
         description: "",
         amount: 100,

@@ -53,7 +53,7 @@ export class ExpenseController {
     async registerMaterialPurchase(req, res) {
         try {
             const usecase = new RegisterMaterialPurchaseUseCase(expenseRepository, materialRepository);
-            const result = await usecase.execute(req.body.materialId, req.body.quantity, req.body.companyId, req.body.description, req.body.date);
+            const result = await usecase.execute(req.body.materialId, req.body.quantity, req.body.description, req.body.date);
             return res.status(201).json(result);
         }
         catch (error) {

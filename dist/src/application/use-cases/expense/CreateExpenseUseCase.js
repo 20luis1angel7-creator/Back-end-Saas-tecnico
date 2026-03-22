@@ -7,13 +7,12 @@ export class CreateExpenseUseCase {
         this.expenseRepository = expenseRepository;
     }
     async execute(dato) {
-        const existigexpense = await this.expenseRepository.findByCompanyId(dato.companyId);
+        const existigexpense = await this.expenseRepository.findAll();
         if (!existigexpense) {
             throw new NotFoundError("Expense not found");
         }
         const expense = new Expense({
             id: randomUUID(),
-            companyId: dato.companyId,
             type: dato.type,
             description: dato.description,
             amount: dato.amount,

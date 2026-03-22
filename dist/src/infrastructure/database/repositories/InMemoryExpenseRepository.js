@@ -12,9 +12,6 @@ export class InMemoryExpenseRepository {
     async findAll() {
         return this.expenses;
     }
-    async findByCompanyId(companyId) {
-        return this.expenses.filter(e => e.companyId === companyId);
-    }
     async findExpenseById(expenseId) {
         return this.expenses.find(e => e.id === expenseId) || null;
     }

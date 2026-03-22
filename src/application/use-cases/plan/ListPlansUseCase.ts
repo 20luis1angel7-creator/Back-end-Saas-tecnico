@@ -9,8 +9,8 @@ export class ListPlansUseCase {
         private readonly planRepository: PlanRepository
     ) {}
 
-    async execute(companyId: string): Promise<Plan[]> {
-        const company = await this.planRepository.findByCompany(companyId)
+    async execute(): Promise<Plan[]> {
+        const company = await this.planRepository.findAll()
 
         if (!company) {
             throw new NotFoundError("Plan not found")

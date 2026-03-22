@@ -26,9 +26,7 @@ export class InMemoryExpenseRepository implements ExpenseRepository {
         return this.expenses
     }
 
-    async findByCompanyId(companyId: string): Promise<Expense[]> {
-        return this.expenses.filter(e => e.companyId === companyId)
-    }
+    
 
     async findExpenseById(expenseId: string): Promise<Expense | null> {
         return this.expenses.find(e => e.id === expenseId) || null

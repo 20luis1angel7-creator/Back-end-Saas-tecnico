@@ -3,7 +3,7 @@ export class ListMaterailsUseCase {
     constructor(materialRepository) {
         this.materialRepository = materialRepository;
     }
-    async execute(id) {
+    async execute() {
         const material = await this.materialRepository.findAll();
         return material;
     }

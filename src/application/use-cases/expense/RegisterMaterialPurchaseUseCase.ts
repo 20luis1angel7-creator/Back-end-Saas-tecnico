@@ -12,7 +12,7 @@ export class RegisterMaterialPurchaseUseCase{
         private readonly materialRepository: MaterialRepository
     ) {}
 
-    async execute(materialId: string, quantity: number, companyId: string, description: string, date: Date): Promise<Expense> {
+    async execute(materialId: string, quantity: number, description: string, date: Date): Promise<Expense> {
         
         if (quantity <= 0) {
             throw new BusinessRuleError("Quantity must be greater than zero")
@@ -32,7 +32,6 @@ export class RegisterMaterialPurchaseUseCase{
 
         const expenseMaterial = new Expense({
                 id: randomUUID(),
-                companyId: companyId,
                 type: "MATERIAL",
                 description: description,
                 amount:total,

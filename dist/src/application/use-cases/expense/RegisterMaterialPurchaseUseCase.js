@@ -8,7 +8,7 @@ export class RegisterMaterialPurchaseUseCase {
         this.expenseRepository = expenseRepository;
         this.materialRepository = materialRepository;
     }
-    async execute(materialId, quantity, companyId, description, date) {
+    async execute(materialId, quantity, description, date) {
         if (quantity <= 0) {
             throw new BusinessRuleError("Quantity must be greater than zero");
         }
@@ -21,7 +21,6 @@ export class RegisterMaterialPurchaseUseCase {
         await this.materialRepository.save(material);
         const expenseMaterial = new Expense({
             id: randomUUID(),
-            companyId: companyId,
             type: "MATERIAL",
             description: description,
             amount: total,
