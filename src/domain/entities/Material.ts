@@ -1,6 +1,18 @@
 import { BusinessRuleError } from "../errors/DomainErrors.js";
 
 
+
+export function toMaterialDTO(material: Material) {
+    return {
+        id: material.id,
+        name: material.name,
+        stock: material.stock,
+        minStock: material.minStock,
+        unitPrice: material.unitPrice,
+        active: material.active
+    }
+}
+
 export class Material {
     constructor(
         public readonly id: string,
