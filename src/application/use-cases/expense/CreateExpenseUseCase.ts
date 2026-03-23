@@ -4,7 +4,6 @@ import { NotFoundError } from "../../../domain/errors/DomainErrors.js";
 import { ExpenseRepository } from "../../../domain/repositories/ExpenseRepository.js";
 import { UuidGenerator } from "../../../infrastructure/services/IdGenerator.js";
 
-
 interface ExpenseDTO {
     // id: UuidGenerator;
     type: ExpenseType;
@@ -19,7 +18,7 @@ export class CreateExpenseUseCase {
         private readonly expenseRepository: ExpenseRepository
     ) {}
 
-    async execute(dato: ExpenseDTO): Promise<void> {
+    async execute(dato: ExpenseDTO): Promise<Expense> {
         
 
         const expense = new Expense({
@@ -32,5 +31,7 @@ export class CreateExpenseUseCase {
         })
 
         await this.expenseRepository.save(expense)
+        
+        return expense
     }
 }

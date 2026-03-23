@@ -15,7 +15,7 @@ export class ExpenseController {
 
             const result = await usecase.execute(req.body)
 
-            return res.status(201).json(result)
+            return res.status(201).json(toExpenseDTO(result))
         }catch(error:unknown) {
             if(error instanceof BusinessRuleError) {
                 return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
@@ -71,12 +71,12 @@ export class ExpenseController {
 
             const result = await usecase.execute(
                 req.body.materialId,
-                req.body.quantity,
+                Number(req.body.quantity),
                 req.body.description,
-                req.body.date
+                new Date(req.body.date)
 
              )
-             return res.status(201).json(result)
+             return res.status(201).json(toExpenseDTO(result))
         }catch(error:unknown) {
             if (error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND" ,message: error.message })
