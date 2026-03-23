@@ -1,4 +1,13 @@
 import { BusinessRuleError } from "../errors/DomainErrors.js";
+export function toOrderDTO(order) {
+    return {
+        id: order.id,
+        clientId: order.clientId,
+        status: order.status,
+        createdAt: order.createdAt,
+        completedAt: order.completed
+    };
+}
 export class Order {
     id;
     clientId;

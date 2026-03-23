@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { expenseRepository, materialRepository } from "../../infrastructure/container.js";
 import { CreateExpenseUseCase } from "../../application/use-cases/expense/CreateExpenseUseCase.js";
-import { GetExpenseByIdUseCase } from "../../application/use-cases/expense/GetExpenseByIdUseCase.js";
-import { ListExpensesUseCase } from "../../application/use-cases/expense/ListExpensesUseCase.js";
+import { getExpenseByIdUseCase } from "../../infrastructure/container.js";
+import { listExpenseUseCase } from "../../infrastructure/container.js";
 import { RegisterMaterialPurchaseUseCase } from "../../application/use-cases/expense/RegisterMaterialPurchaseUseCase.js";
 import { NotFoundError, BusinessRuleError } from "../../domain/errors/DomainErrors.js";
+import { toExpenseDTO } from "../../domain/entities/Expense.js";
 
 export class ExpenseController {
 
@@ -26,11 +27,13 @@ export class ExpenseController {
 
     async getExpenseById(req: Request<{expenseId: string}>, res: Response) {
         try{
-            const usecase = new GetExpenseByIdUseCase(expenseRepository)
+            const expense = await getExpenseByIdUseCase.execute(req.params.expenseId);
 
-            const result = await usecase.execute(req.params.expenseId)
-
-            return res.status(200).json(result)
+            if (!expense) {
+               return res.status(404).json({ type: "NOT_FOUND", message: "Expense not found" });
+            }
+               
+            return res.status(200).json(toExpenseDTO(expense));
         }catch(error:unknown) {
             if (error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND", message: error.message})
@@ -46,12 +49,9 @@ export class ExpenseController {
 
     async listExpenses(req: Request, res: Response) {
         try {
-            
-            const usecase = new ListExpensesUseCase(expenseRepository)
+            const result = await listExpenseUseCase.execute();
 
-            const result = await usecase.execute()
-
-            return res.status(200).json(result)
+            return res.status(200).json(result.map(toExpenseDTO))
         }catch(error:unknown) {
             if (error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND", message: error.message})

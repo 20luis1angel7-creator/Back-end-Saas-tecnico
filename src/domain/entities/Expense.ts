@@ -6,6 +6,18 @@ export type ExpenseType =
 | "MATERIAL"
 | "MAINTENANCE";
 
+
+export function toExpenseDTO(expense: Expense) {
+    return {
+        id: expense.id,
+        type: expense.type,
+        description: expense.description,
+        amount: expense.amount,
+        date: expense.date,
+        createdAt: expense.createdAt
+    }
+}
+
 export interface ExpenseProps {
   id: string,
   type: ExpenseType;
@@ -37,12 +49,24 @@ export class Expense {
     return this.props.id;
   }
 
+  get type() {
+    return this.props.type;
+  }
+
+  get description() {
+    return this.props.description;
+  }
+
   get amount() {
     return this.props.amount;
   }
 
-  get type() {
-    return this.props.type;
+  get date() {
+    return this.props.date;
+  }
+
+  get createdAt() {
+    return this.props.createdAt;
   }
 }
 

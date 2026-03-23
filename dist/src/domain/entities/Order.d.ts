@@ -1,4 +1,11 @@
 export type OrderStatus = "PENDING" | "IN_PROGRESS" | "CANCELLED" | "COMPLETED";
+export declare function toOrderDTO(order: Order): {
+    id: string;
+    clientId: string;
+    status: OrderStatus;
+    createdAt: Date;
+    completedAt: Date | undefined;
+};
 export declare class Order {
     readonly id: string;
     readonly clientId: string;

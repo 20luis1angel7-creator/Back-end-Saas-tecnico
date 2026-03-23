@@ -16,6 +16,8 @@ import { DeactivateMaterialUseCase } from "../application/use-cases/material/Dea
 import { UpdateMaterialUseCase } from "../application/use-cases/material/UpdateMaterialUseCase.js";
 import { CreateMaterialUseCase } from "../application/use-cases/material/CreateMaterialUseCase.js";
 import { ListOrdersUseCase } from "../application/use-cases/order/ListOrdersUseCase.js";
+import { ListExpensesUseCase } from "../application/use-cases/expense/ListExpensesUseCase.js";
+import { GetExpenseByIdUseCase } from "../application/use-cases/expense/GetExpenseByIdUseCase.js";
 
 //singleton manual
 export const clientRepository = new InMemoryClientRepository();
@@ -39,6 +41,9 @@ export const createExpenseUseCase = new CreateExpenseUseCase(expenseRepository)
 // order controller
 export const listOrdersUseCase = new ListOrdersUseCase(orderRepository)
 
+// expense controller
+export const listExpenseUseCase = new ListExpensesUseCase(expenseRepository)
+export const getExpenseByIdUseCase = new GetExpenseByIdUseCase(expenseRepository)
 
 export const createMaterialUseCase = new CreateMaterialUseCase(materialRepository)
 export const listMaterailsUseCase = new ListMaterailsUseCase(materialRepository)
