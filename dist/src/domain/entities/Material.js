@@ -1,4 +1,14 @@
 import { BusinessRuleError } from "../errors/DomainErrors.js";
+export function toMaterialDTO(material) {
+    return {
+        id: material.id,
+        name: material.name,
+        stock: material.stock,
+        minStock: material.minStock,
+        unitPrice: material.unitPrice,
+        active: material.active
+    };
+}
 export class Material {
     id;
     _name;

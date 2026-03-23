@@ -7,13 +7,18 @@ import { materialRepository } from "../../infrastructure/container.js";
 import { orderMaterialUsageRepository } from "../../infrastructure/container.js";
 import { NotFoundError, BusinessRuleError } from "../../domain/errors/DomainErrors.js";
 import { ListOrdersUseCase } from "../../application/use-cases/order/ListOrdersUseCase.js";
+import { toOrderDTO } from "../../domain/entities/Order.js";
 
 export class OrderController {
-    async getClientById( req: Request<{ clientId: string}>, res: Response) {
+    async getById( req: Request<{ id: string}>, res: Response) {
         try {
-            const orders = await orderRepository.findByClientId(req.params.clientId);
-            
-            return res.status(200).json(orders);
+            const order = await orderRepository.findById(req.params.id);
+
+            if (!order) {
+                return res.status(404).json({ type: "NOT_FOUND", message: "Order not found" })
+            }
+
+            return res.status(200).json(toOrderDTO(order));
         }catch(error:unknown) {
             if (error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND", message: error.message})
@@ -95,7 +100,7 @@ export class OrderController {
         const usecase = new ListOrdersUseCase(orderRepository)
         const result = await usecase.execute()
 
-        return res.status(200).json(result)
+        return res.status(200).json(result.map(toOrderDTO))
     }   
 }
 

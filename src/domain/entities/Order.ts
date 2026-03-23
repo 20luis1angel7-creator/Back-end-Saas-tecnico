@@ -6,6 +6,16 @@ export type OrderStatus =
 | "CANCELLED"
 | "COMPLETED";
 
+export function toOrderDTO(order: Order) {
+    return {
+        id: order.id,
+        clientId: order.clientId,
+        status: order.status,
+        createdAt: order.createdAt,
+        completedAt: order.completed
+    }
+}
+
 export class Order {
     constructor(
         public readonly id: string,

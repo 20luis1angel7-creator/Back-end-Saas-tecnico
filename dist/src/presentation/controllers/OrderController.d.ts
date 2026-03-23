@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 export declare class OrderController {
-    getClientById(req: Request<{
-        clientId: string;
+    getById(req: Request<{
+        id: string;
     }>, res: Response): Promise<Response<any, Record<string, any>>>;
     start(req: Request<{
         id: string;

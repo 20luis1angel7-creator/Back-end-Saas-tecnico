@@ -1,3 +1,11 @@
+export declare function toMaterialDTO(material: Material): {
+    id: string;
+    name: string;
+    stock: number;
+    minStock: number;
+    unitPrice: number;
+    active: boolean;
+};
 export declare class Material {
     readonly id: string;
     private _name;

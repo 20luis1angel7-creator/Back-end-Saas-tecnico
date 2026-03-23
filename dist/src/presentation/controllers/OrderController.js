@@ -7,9 +7,9 @@ import { orderMaterialUsageRepository } from "../../infrastructure/container.js"
 import { NotFoundError, BusinessRuleError } from "../../domain/errors/DomainErrors.js";
 import { ListOrdersUseCase } from "../../application/use-cases/order/ListOrdersUseCase.js";
 export class OrderController {
-    async getClientById(req, res) {
+    async getById(req, res) {
         try {
-            const orders = await orderRepository.findByClientId(req.params.clientId);
+            const orders = await orderRepository.findById(req.params.id);
             return res.status(200).json(orders);
         }
         catch (error) {

@@ -4,6 +4,7 @@ import { listMaterailsUseCase } from "../../infrastructure/container.js";
 import { deactivateMaterialUseCase } from "../../infrastructure/container.js";
 import { updateMaterialUseCase } from "../../infrastructure/container.js";
 import { BusinessRuleError, NotFoundError } from "../../domain/errors/DomainErrors.js";
+import { toMaterialDTO } from "../../domain/entities/Material.js";
 export class MaterialController {
     async create(req, res) {
         try {
@@ -20,9 +21,11 @@ export class MaterialController {
     }
     async getById(req, res) {
         try {
-            const material = req.params.id;
-            const result = await getMaterialByIdUseCase.execute(material);
-            return res.status(200).json(result);
+            const material = await getMaterialByIdUseCase.execute(req.params.id);
+            if (!material) {
+                return res.status(404).json({ type: "NOT_FOUND", message: "Material not found" });
+            }
+            return res.status(200).json(toMaterialDTO(material));
         }
         catch (error) {
             if (error instanceof NotFoundError) {
@@ -36,8 +39,9 @@ export class MaterialController {
     }
     async listmaterials(req, res) {
         try {
-            const result = await listMaterailsUseCase.execute();
-            return res.status(200).json(result);
+            const materials = await listMaterailsUseCase.execute();
+            const response = materials.map(m => toMaterialDTO(m));
+            return res.status(200).json(response);
         }
         catch (error) {
             if (error instanceof NotFoundError) {
