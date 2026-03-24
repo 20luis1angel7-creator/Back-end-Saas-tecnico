@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import { expenseRepository, materialRepository } from "../../infrastructure/container.js";
 import { CreateExpenseUseCase } from "../../application/use-cases/expense/CreateExpenseUseCase.js";
 import { getExpenseByIdUseCase } from "../../infrastructure/container.js";
@@ -6,6 +6,7 @@ import { listExpenseUseCase } from "../../infrastructure/container.js";
 import { RegisterMaterialPurchaseUseCase } from "../../application/use-cases/expense/RegisterMaterialPurchaseUseCase.js";
 import { NotFoundError, BusinessRuleError } from "../../domain/errors/DomainErrors.js";
 import { toExpenseDTO } from "../../domain/entities/Expense.js";
+import { DeleteExpenseUseCase } from "../../application/use-cases/expense/DeleteOrderUseCase.js";
 
 export class ExpenseController {
 
@@ -88,5 +89,21 @@ export class ExpenseController {
 
             return res.status(500).json({ type: "INTERNAL_ERROR", message: "Internal server error" })
         }
+    }
+
+    async delete(req: Request<{expenseId: string}>, res: Response ) {
+        try {
+            const usecase = new DeleteExpenseUseCase(expenseRepository)
+
+            await usecase.execute(req.params.expenseId)
+
+            return res.status(204).send()
+        } catch (error: unknown) {
+        if (error instanceof NotFoundError) {
+            return res.status(404).json({ message: error.message })
+        }
+
+        return res.status(500).json({ message: "Internal error" })
+    }
     }
 }
