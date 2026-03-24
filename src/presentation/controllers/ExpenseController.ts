@@ -7,6 +7,7 @@ import { RegisterMaterialPurchaseUseCase } from "../../application/use-cases/exp
 import { NotFoundError, BusinessRuleError } from "../../domain/errors/DomainErrors.js";
 import { toExpenseDTO } from "../../domain/entities/Expense.js";
 import { DeleteExpenseUseCase } from "../../application/use-cases/expense/DeleteOrderUseCase.js";
+import { UpdateExpenseUseCase } from "../../application/use-cases/expense/UpdateExpenseUseCase.js";
 
 export class ExpenseController {
 
@@ -81,6 +82,31 @@ export class ExpenseController {
         }catch(error:unknown) {
             if (error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND" ,message: error.message })
+            }
+
+            if (error instanceof BusinessRuleError) {
+                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+            }
+
+            return res.status(500).json({ type: "INTERNAL_ERROR", message: "Internal server error" })
+        }
+    }
+
+    async update(req: Request<{ expenseId: string }>, res: Response) {
+        try {
+            const usecase = new UpdateExpenseUseCase(expenseRepository)
+
+            const result = await usecase.execute(
+                req.params.expenseId,
+                req.body.description,
+                Number(req.body.amount),
+                new Date(req.body.date)
+            )
+
+            return res.status(200).json(toExpenseDTO(result))
+        } catch (error: unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ type: "NOT_FOUND", message: error.message })
             }
 
             if (error instanceof BusinessRuleError) {

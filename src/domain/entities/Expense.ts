@@ -1,3 +1,4 @@
+import { BusinessRuleError } from "../errors/DomainErrors.js";
 
 
 export type ExpenseType =
@@ -41,7 +42,7 @@ export class Expense {
     }
 
     if (props.amount <= 0) {
-      throw new Error("Amount must be greater than zero");
+      throw new BusinessRuleError("Amount must be greater than zero");
       
     }
   }
@@ -68,6 +69,24 @@ export class Expense {
   get createdAt() {
     return this.props.createdAt;
   }
+
+  update(
+  description: string,
+  amount: number,
+  date: Date,
+): void {
+  if (!description || description.trim().length === 0) {
+    throw new BusinessRuleError("Description is required");
+  }
+
+  if (amount <= 0) {
+    throw new BusinessRuleError("Amount must be greater than zero");
+  }
+
+  this.props.description = description;
+  this.props.amount = amount;
+  this.props.date = date;
+}
 }
 
 
