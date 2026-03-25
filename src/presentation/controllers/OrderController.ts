@@ -105,32 +105,32 @@ export class OrderController {
     }   
 
     async registerMaterialUsage(req: Request<{ id: string }>, res: Response) {
-        try {
-            const usecase = new RegisterMaterialUsageUseCase(
-                orderRepository,
-                orderMaterialUsageRepository,
-                materialRepository
-            )
+    try {
+        const usecase = new RegisterMaterialUsageUseCase(
+            orderRepository,
+            orderMaterialUsageRepository,
+            materialRepository
+        )
 
-            await usecase.execute(
-                req.params.id,
-                req.body.materialId,
-                Number(req.body.quantity)
-            )
+        await usecase.execute(
+            req.params.id,
+            req.body.materialId,
+            Number(req.body.quantity)
+        )
 
-            return res.status(201).json({ message: "Material usage registered" })
-        } catch (error: unknown) {
-            if (error instanceof NotFoundError) {
-                return res.status(404).json({ type: "NOT_FOUND", message: error.message })
-            }
-
-            if (error instanceof BusinessRuleError) {
-                return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
-            }
-
-            return res.status(500).json({ type: "INTERNAL_ERROR", message: "Internal server error" })
+        return res.status(201).json({ message: "Material usage registered" })
+    } catch (error: unknown) {
+        if (error instanceof NotFoundError) {
+            return res.status(404).json({ type: "NOT_FOUND", message: error.message })
         }
+
+        if (error instanceof BusinessRuleError) {
+            return res.status(400).json({ type: "BUSINESS_RULE_VIOLATION", message: error.message })
+        }
+
+        return res.status(500).json({ type: "INTERNAL_ERROR", message: "Internal server error" })
     }
+}
 }
 
 
