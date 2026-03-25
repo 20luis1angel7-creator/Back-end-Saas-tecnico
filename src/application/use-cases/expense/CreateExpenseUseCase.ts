@@ -9,7 +9,6 @@ interface ExpenseDTO {
     type: ExpenseType;
     description: string;
     amount: number;
-    date: Date;
     createdAt: Date;
 }
 
@@ -26,7 +25,6 @@ export class CreateExpenseUseCase {
             type: dato.type,
             description: dato.description,
             amount: dato.amount,
-            date: dato.date,
             createdAt: dato.createdAt
         })
 

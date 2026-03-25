@@ -8,8 +8,7 @@ export class UpdateExpenseUseCase {
   async execute(
     id: string,
     description: string,
-    amount: number,
-    date: Date
+    amount: number
   ): Promise<Expense> {
     const expense = await this.expenseRepository.findExpenseById(id);
 
@@ -17,7 +16,7 @@ export class UpdateExpenseUseCase {
       throw new NotFoundError("Expense not found");
     }
 
-    expense.update(description, amount, date);
+    expense.update(description, amount);
 
     await this.expenseRepository.save(expense);
 

@@ -12,7 +12,7 @@ export class RegisterMaterialPurchaseUseCase{
         private readonly materialRepository: MaterialRepository
     ) {}
 
-    async execute(materialId: string, quantity: number, description: string, date: Date): Promise<Expense> {
+    async execute(materialId: string, quantity: number, description: string): Promise<Expense> {
         
         if (quantity <= 0) {
             throw new BusinessRuleError("Quantity must be greater than zero")
@@ -35,7 +35,6 @@ export class RegisterMaterialPurchaseUseCase{
                 type: "MATERIAL",
                 description: description,
                 amount:total,
-                date: date,
                 createdAt: new Date()
             })
 

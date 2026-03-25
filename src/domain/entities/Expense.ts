@@ -14,7 +14,6 @@ export function toExpenseDTO(expense: Expense) {
         type: expense.type,
         description: expense.description,
         amount: expense.amount,
-        date: expense.date,
         createdAt: expense.createdAt
     }
 }
@@ -24,7 +23,6 @@ export interface ExpenseProps {
   type: ExpenseType;
   description: string;
   amount: number;
-  date: Date;
   createdAt: Date;
 }
 
@@ -62,18 +60,13 @@ export class Expense {
     return this.props.amount;
   }
 
-  get date() {
-    return this.props.date;
-  }
-
   get createdAt() {
     return this.props.createdAt;
   }
 
   update(
   description: string,
-  amount: number,
-  date: Date,
+  amount: number
 ): void {
   if (!description || description.trim().length === 0) {
     throw new BusinessRuleError("Description is required");
@@ -85,7 +78,6 @@ export class Expense {
 
   this.props.description = description;
   this.props.amount = amount;
-  this.props.date = date;
 }
 }
 

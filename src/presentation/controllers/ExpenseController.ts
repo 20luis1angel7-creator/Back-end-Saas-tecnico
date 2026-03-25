@@ -1,4 +1,4 @@
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 import { expenseRepository, materialRepository } from "../../infrastructure/container.js";
 import { CreateExpenseUseCase } from "../../application/use-cases/expense/CreateExpenseUseCase.js";
 import { getExpenseByIdUseCase } from "../../infrastructure/container.js";
@@ -74,8 +74,7 @@ export class ExpenseController {
             const result = await usecase.execute(
                 req.body.materialId,
                 Number(req.body.quantity),
-                req.body.description,
-                new Date(req.body.date)
+                req.body.description
 
              )
              return res.status(201).json(toExpenseDTO(result))
@@ -99,8 +98,7 @@ export class ExpenseController {
             const result = await usecase.execute(
                 req.params.expenseId,
                 req.body.description,
-                Number(req.body.amount),
-                new Date(req.body.date)
+                Number(req.body.amount)
             )
 
             return res.status(200).json(toExpenseDTO(result))
