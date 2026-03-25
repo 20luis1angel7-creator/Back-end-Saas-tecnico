@@ -19,7 +19,24 @@ export class OrderController {
                 return res.status(404).json({ type: "NOT_FOUND", message: "Order not found" })
             }
 
-            return res.status(200).json(toOrderDTO(order));
+            const usages = await orderMaterialUsageRepository.findByOrderId(req.params.id)
+
+            const materialsUsed = []
+
+            for (const usage of usages) {
+                const material = await materialRepository.findById(usage.materialId)
+
+                materialsUsed.push({
+                    materialId: usage.materialId,
+                    materialName: material ? material.name : "Unknown material",
+                    quantity: usage.quantity
+                })
+            }
+
+            return res.status(200).json({
+                ...toOrderDTO(order),
+                materialsUsed
+            })
         }catch(error:unknown) {
             if (error instanceof NotFoundError) {
                 return res.status(404).json({ type: "NOT_FOUND", message: error.message})
