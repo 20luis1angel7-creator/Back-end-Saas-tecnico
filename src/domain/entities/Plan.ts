@@ -44,6 +44,10 @@ export class Plan {
         this.isActive = false;
     }
 
+    activate(): void {
+        this.isActive = true
+    }
+
     update(
         name: string,
         price: number,

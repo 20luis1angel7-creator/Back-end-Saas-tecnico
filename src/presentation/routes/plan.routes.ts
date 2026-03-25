@@ -13,6 +13,8 @@ router.get("/", (req, res) => controller.listPlans(req, res))
 
 router.patch("/:id/deactivate", (req, res) => controller.deactivatePlan(req, res))
 
+router.patch("/:id/activate", (req, res) => controller.activate(req, res))
+
 router.patch("/:id/update", (req, res) => controller.updatePlan(req, res))
 
 
