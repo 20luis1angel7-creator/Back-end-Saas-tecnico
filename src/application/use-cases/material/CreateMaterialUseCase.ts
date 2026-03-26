@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto"
 import { Material } from "../../../domain/entities/Material.js"
 import { MaterialRepository } from "../../../domain/repositories/MaterialRepository.js"
-
+import { BusinessRuleError } from "../../../domain/errors/DomainErrors.js"
 
 
 
@@ -20,6 +20,11 @@ export class CreateMaterialUseCase {
 
     async execute(data: MaterialDTO) : Promise<Material> {
         
+        const existing = await this.materialRepository.findByName(data.name)
+
+        if (existing) {
+            throw new BusinessRuleError("Material name already exists")
+        }
 
         const material = new Material(
             randomUUID(),

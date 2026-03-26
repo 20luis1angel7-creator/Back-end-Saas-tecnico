@@ -16,5 +16,11 @@ export class InMemoryMaterialRepository {
         return Array.from(this.materials.values());
     }
 
-    
+    async findByName(name: string): Promise<Material | null> {
+        const material = Array.from(this.materials.values()).find(
+            (m: Material) => m.name === name
+        )
+
+        return material || null
+    }
 }
