@@ -5,6 +5,7 @@ const router = Router();
 
 const controller = new OrderController();
 
+router.post("/", controller.create.bind(controller));
 router.get("/:id", controller.getById.bind(controller));//Si no haces .bind(controller) a veces this puede romperse.
 
 router.patch("/:id/complete", controller.complete.bind(controller));

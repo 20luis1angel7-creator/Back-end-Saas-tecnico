@@ -10,8 +10,54 @@ import { ListOrdersUseCase } from "../../application/use-cases/order/ListOrdersU
 import { toOrderDTO } from "../../domain/entities/Order.js";
 import { RegisterMaterialUsageUseCase } from "../../application/use-cases/order/RegisterMaterialUsageUseCase.js";
 import { clientRepository } from "../../infrastructure/container.js";
+import { CreateOrderUseCase } from "../../application/use-cases/order/CreateOrderUseCase.js";
 
 export class OrderController {
+
+    async create(req: Request, res: Response) {
+        try {
+            const usecase = new CreateOrderUseCase(
+                clientRepository,
+                orderRepository
+            );
+
+            const order = await usecase.execute({
+                cedula: req.body.cedula
+            });
+
+            const client = await clientRepository.findById(order.clientId);
+
+            return res.status(201).json({
+                ...toOrderDTO(order),
+                client: client
+                    ? {
+                          cedula: client.cedula,
+                          name: client.name,
+                          address: client.address
+                      }
+                    : null
+            });
+        } catch (error: unknown) {
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({
+                    type: "NOT_FOUND",
+                    message: error.message
+                });
+            }
+
+            if (error instanceof BusinessRuleError) {
+                return res.status(400).json({
+                    type: "BUSINESS_RULE_VIOLATION",
+                    message: error.message
+                });
+            }
+
+            return res.status(500).json({
+                type: "INTERNAL_ERROR",
+                message: "Internal server error"
+            });
+        }
+    }
     async getById( req: Request<{ id: string}>, res: Response) {
         try {
             const order = await orderRepository.findById(req.params.id);
